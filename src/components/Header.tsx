@@ -53,7 +53,7 @@ export function Header({ currentPage, onNavigate, cartCount, currentUser }: Head
           </button>
 
           {/* Desktop Navigation */}
-          <nav className="hidden lg:flex items-center space-x-8">
+          <nav className="hidden md:flex items-center space-x-8">
             {navigation.map((item) => (
               <button
                 key={item.id}
@@ -180,7 +180,7 @@ export function Header({ currentPage, onNavigate, cartCount, currentUser }: Head
               variant="ghost"
               size="icon"
               onClick={() => setIsMenuOpen(!isMenuOpen)}
-              className="lg:hidden hover:bg-primary/10"
+              className="md:hidden hover:bg-primary/10"
             >
               {isMenuOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
             </Button>
