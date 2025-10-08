@@ -27,6 +27,8 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '.
 import { Tabs, TabsContent, TabsList, TabsTrigger } from './ui/tabs'
 import { toast } from "sonner"
 import { ImageWithFallback } from './figma/ImageWithFallback'
+import { cn } from "@/lib/utils";
+
 
 interface AdminPanelProps {
   onClose: () => void

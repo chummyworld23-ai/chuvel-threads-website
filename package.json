@@ -3,9 +3,9 @@
   "private": true,
   "version": "0.0.0",
   "type": "module",
-  "{scripts": {
+  "scripts": {
     "dev": "vite",
-    "build": "vite build",
+    "build": "tsc && vite build",
     "preview": "vite preview",
     "tw:build": "node ./node_modules/tailwindcss/lib/cli.js -i ./src/styles/input.css -o ./dist/styles.css --minify",
     "tw:watch": "node ./node_modules/tailwindcss/lib/cli.js -i ./src/styles/input.css -o ./dist/styles.css --watch"
@@ -66,8 +66,8 @@
     "@eslint/js": "^9.13.0",
     "@tailwindcss/postcss": "^4.1.14",
     "@types/node": "^22.8.4",
-    "@types/react": "^18.3.12",
-    "@types/react-dom": "^18.3.1",
+    "@types/react": "^18.3.26",
+    "@types/react-dom": "^18.3.7",
     "@vitejs/plugin-react": "^4.7.0",
     "autoprefixer": "^10.4.21",
     "esbuild": "^0.25.10",
