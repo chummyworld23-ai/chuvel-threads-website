@@ -2,9 +2,8 @@
 export default {
   content: [
     "./index.html",
-    "./**/*.{js,ts,jsx,tsx}",
+    "./src/**/*.{js,ts,jsx,tsx,html}",
   ],
-
   theme: {
     extend: {
       colors: {
@@ -53,15 +52,4 @@ export default {
     },
   },
   plugins: [],
-}
-// ...existing code...
-module.exports = {
-  content: [
-    "./index.html",
-    "./src/**/*.{js,ts,jsx,tsx,html}"
-  ],
-  theme: {
-    extend: {},
-  },
-  plugins: [],
-}
+};
