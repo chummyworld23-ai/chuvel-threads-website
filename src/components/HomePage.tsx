@@ -1,4 +1,4 @@
-import { ArrowRight, Star, Instagram, MessageCircle, Twitter, Facebook, Youtube, MessageSquare, } from 'lucide-react'
+import { ArrowRight, Star, Instagram, MessageCircle, Twitter, Facebook, Twitch, MessageSquare, } from 'lucide-react'
 import { motion } from 'framer-motion'
 import { Button } from './ui/button'
 import { Card, CardContent } from './ui/card'
@@ -250,7 +250,7 @@ export function HomePage({ onNavigate, onAddToCart, currentUser }: HomePageProps
             </motion.div>
 
             {/* Right Image */}
-            <div className="relative lg:block hidden">
+            <div className="relative md:block hidden">
               <div className="relative">
                 {/* Glassy frame */}
                 <div className="absolute inset-0 backdrop-blur-xl bg-gradient-to-br from-primary/10 to-secondary/10 rounded-3xl border border-primary/20 shadow-2xl"></div>
@@ -573,30 +573,15 @@ export function HomePage({ onNavigate, onAddToCart, currentUser }: HomePageProps
             <Facebook className="h-5 w-5" />
           </Button>
         </a>
-
-        {/* Youtube Link ⬅️ **REPLACE PLACEHOLDER URL** */}
-        <a 
-          href="https://www.youtube.com/@CHUVEL_THREADS_CHANNEL" // Example: "https://www.youtube.com/@ChuvelThreads"
-          target="_blank" 
-          rel="noopener noreferrer"
-        >
-          <Button variant="ghost" size="icon" className="hover:bg-primary/10 hover:text-primary transition-colors">
-            <Youtube className="h-5 w-5" />
-          </Button>
-        </a>
-
-        {/* TikTok Link (Added Here) */}
-        <a 
-          href="https://www.tiktok.com/@CHUVEL_THREADS_HANDLE" // Example: "https://www.tiktok.com/@chuvel_threads"
-          target="_blank" 
-          rel="noopener noreferrer"
-        >
-          <Button variant="ghost" size="icon" className="hover:bg-primary/10 hover:text-primary transition-colors">
-            {/* The new TikTok icon! */}
-            <TikTok className="h-5 w-5" /> 
-          </Button>
-        </a>
-
+        <a 
+          href="https://www.tiktok.com/@CHUVEL_THREADS_HANDLE" // Your actual TikTok URL here
+          target="_blank" 
+          rel="noopener noreferrer"
+        >
+          <Button variant="ghost" size="icon" className="hover:bg-primary/10 hover:text-primary transition-colors">
+            <Twitch className="h-5 w-5" />
+          </Button>
+        </a>
       </div>
       <p className="text-sm text-foreground/60">
         © 2024 Chuvel Threads. All rights reserved.
