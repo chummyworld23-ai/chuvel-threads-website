@@ -19,14 +19,24 @@ export default function App() {
   const [isAdminOpen, setIsAdminOpen] = useState(false);
   const [currentUser, setCurrentUser] = useState<any>(null);
 
-  // Auth state listener
-  useEffect(() => {
-    const unsubscribe = authService.onAuthStateChange((user) => {
-      setCurrentUser(user);
-    });
+  useEffect(() => {
+    const checkSession = async () => {
+      const { data } = await authService.getSession(); 
+      if (data?.session?.user) {
+        setCurrentUser(data.session.user);
+        setIsLoginOpen(false);
+        setIsSignupOpen(false);
+        window.history.replaceState(null, '', window.location.pathname);
+      }
+    };
+    checkSession();
 
-    return () => unsubscribe();
-  }, []);
+    const unsubscribe = authService.onAuthStateChange((user) => {
+      setCurrentUser(user);
+    });
+
+    return () => unsubscribe();
+  }, []);
 
   const handleNavigate = (page: string) => {
     if (page === "login") {
