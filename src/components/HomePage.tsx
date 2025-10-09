@@ -1,4 +1,4 @@
-import { ArrowRight, Star, Instagram, MessageCircle, Twitter, Facebook, Youtube, MessageSquare } from 'lucide-react'
+import { ArrowRight, Star, Instagram, MessageCircle, Twitter, Facebook, Youtube, MessageSquare, } from 'lucide-react'
 import { motion } from 'framer-motion'
 import { Button } from './ui/button'
 import { Card, CardContent } from './ui/card'
@@ -536,39 +536,81 @@ export function HomePage({ onNavigate, onAddToCart, currentUser }: HomePageProps
       </section>
 
       {/* Social Links */}
-      <section className="py-12 border-t border-primary/20">
-        <div className="container mx-auto px-4">
-          <div className="flex flex-col md:flex-row items-center justify-between gap-4">
-            <div className="flex items-center gap-4">
-              <Button variant="ghost" size="icon" className="hover:bg-primary/10 hover:text-primary transition-colors">
-                <Instagram className="h-5 w-5" />
-              </Button>
-              <Button variant="ghost" size="icon" className="hover:bg-primary/10 hover:text-primary transition-colors">
-                <Twitter className="h-5 w-5" />
-              </Button>
-              <Button variant="ghost" size="icon" className="hover:bg-primary/10 hover:text-primary transition-colors">
-                <Facebook className="h-5 w-5" />
-              </Button>
-              <Button variant="ghost" size="icon" className="hover:bg-primary/10 hover:text-primary transition-colors">
-                <Youtube className="h-5 w-5" />
-              </Button>
-              <Button variant="ghost" size="icon" className="hover:bg-primary/10 hover:text-primary transition-colors">
-                <MessageCircle className="h-5 w-5" />
-              </Button>
-            </div>
-            <p className="text-sm text-foreground/60">
-              © 2024 Chuvel Threads. All rights reserved.
-            </p>
-          </div>
-        </div>
-      </section>
+<section className="py-12 border-t border-primary/20">
+  <div className="container mx-auto px-4">
+    <div className="flex flex-col md:flex-row items-center justify-between gap-4">
+      <div className="flex items-center gap-4">
+
+        {/* Instagram Link (Already Correct) */}
+        <a 
+          href="https://www.instagram.com/chuvel_threads?utm_source=ig_web_button_share_sheet&igsh=ZzhjdHphN2x1eHdu" 
+          target="_blank" 
+          rel="noopener noreferrer"
+        >
+          <Button variant="ghost" size="icon" className="hover:bg-primary/10 hover:text-primary transition-colors">
+            <Instagram className="h-5 w-5" />
+          </Button>
+        </a>
+
+        {/* Twitter Link ⬅️ **REPLACE PLACEHOLDER URL** */}
+        <a 
+          href="https://x.com/CHUVEL_THREADS_HANDLE" // Example: "https://x.com/ChuvelThreads"
+          target="_blank" 
+          rel="noopener noreferrer"
+        >
+          <Button variant="ghost" size="icon" className="hover:bg-primary/10 hover:text-primary transition-colors">
+            <Twitter className="h-5 w-5" />
+          </Button>
+        </a>
+
+        {/* Facebook Link (Already Correct) */}
+        <a 
+          href="https://www.facebook.com/profile.php?id=61581968367375" 
+          target="_blank" 
+          rel="noopener noreferrer"
+        >
+          <Button variant="ghost" size="icon" className="hover:bg-primary/10 hover:text-primary transition-colors">
+            <Facebook className="h-5 w-5" />
+          </Button>
+        </a>
+
+        {/* Youtube Link ⬅️ **REPLACE PLACEHOLDER URL** */}
+        <a 
+          href="https://www.youtube.com/@CHUVEL_THREADS_CHANNEL" // Example: "https://www.youtube.com/@ChuvelThreads"
+          target="_blank" 
+          rel="noopener noreferrer"
+        >
+          <Button variant="ghost" size="icon" className="hover:bg-primary/10 hover:text-primary transition-colors">
+            <Youtube className="h-5 w-5" />
+          </Button>
+        </a>
+
+        {/* TikTok Link (Added Here) */}
+        <a 
+          href="https://www.tiktok.com/@CHUVEL_THREADS_HANDLE" // Example: "https://www.tiktok.com/@chuvel_threads"
+          target="_blank" 
+          rel="noopener noreferrer"
+        >
+          <Button variant="ghost" size="icon" className="hover:bg-primary/10 hover:text-primary transition-colors">
+            {/* The new TikTok icon! */}
+            <TikTok className="h-5 w-5" /> 
+          </Button>
+        </a>
+
+      </div>
+      <p className="text-sm text-foreground/60">
+        © 2024 Chuvel Threads. All rights reserved.
+      </p>
+    </div>
+  </div>
+</section>
 
       {/* WhatsApp Floating Button */}
       <div className="fixed bottom-6 right-6 z-50">
         <Button
           size="icon"
           className="h-14 w-14 rounded-full bg-green-500 hover:bg-green-600 text-white shadow-lg hover:shadow-xl transition-all duration-300 animate-pulse"
-          onClick={() => window.open('https://wa.me/2349012345678?text=Hello, I\'m interested in your products!', '_blank')}
+          onClick={() => window.open('https://wa.me/2347032603312?text=Hello, I\'m interested in your products!', '_blank')}
         >
           <MessageSquare className="h-6 w-6" />
         </Button>
