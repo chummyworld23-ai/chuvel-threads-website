@@ -164,7 +164,7 @@ export function HomePage({ onNavigate, onAddToCart, currentUser }: HomePageProps
                 transition={{ duration: 1.2, delay: 0.3, ease: "easeOut" }}
                 whileHover={{ scale: 1.02, transition: { duration: 0.3 } }}
               >
-                <div className="space-y-6">
+                <div className="space-y-6 text-left">
                   <motion.div 
                     className="flex items-center gap-3"
                     initial={{ opacity: 0, y: 20 }}
@@ -191,7 +191,7 @@ export function HomePage({ onNavigate, onAddToCart, currentUser }: HomePageProps
                       animate={{ backgroundPosition: '100% 50%' }}
                       transition={{ duration: 3, repeat: Infinity, repeatType: 'reverse' }}
                     >
-                      STYLES
+                      PREMUIM
                     </motion.span>
                     <br />
                     <motion.span 
@@ -219,7 +219,7 @@ export function HomePage({ onNavigate, onAddToCart, currentUser }: HomePageProps
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.8, delay: 1.2 }}
                   >
-                    Experience the perfect fusion of Nigerian heritage and contemporary design. From luxury Agbadas to modern streetwear.
+                    Crafting timeless senator wears & urban styles. From luxury Agbadas to modern streetwear.
                   </motion.p>
                   
                   <div className="flex flex-col sm:flex-row gap-4">
@@ -261,10 +261,10 @@ export function HomePage({ onNavigate, onAddToCart, currentUser }: HomePageProps
             {/* Right Image */}
             <div className="relative hidden md:block">
               <div className="bg-[#1C1C1C] border border-white/10 rounded-2xl p-4 shadow-2xl">
-                <ImageWithFallback
-                  src={heroImage}
-                  alt="A model wearing a Chuvel Threads traditional blue and black robe"
-                  className="w-full h-[600px] object-cover rounded-xl"
+                <img
+                src={heroImage}
+                alt="TEST IMAGE"
+                className="w-full h-[600px] object-cover rounded-xl"
                 />
               </div>
 
