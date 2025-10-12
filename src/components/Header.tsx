@@ -51,7 +51,7 @@ export function Header({ currentPage, onNavigate, cartCount, currentUser }: Head
             <img 
     src={yourLogo} 
     alt="Chuvel Threads Logo" 
-    className="h-15" /* You can adjust this size */
+    className="h-10" /* You can adjust this size */
   />
 </button>
 
