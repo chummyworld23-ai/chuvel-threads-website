@@ -4,7 +4,7 @@ import { Button } from './ui/button'
 import { Input } from './ui/input'
 import { authService } from '../lib/supabaseService'
 import { toast } from "sonner"
-
+import yourLogo from '../assets/Logo.png';
 interface HeaderProps {
   currentPage: string
   onNavigate: (page: string) => void
@@ -48,9 +48,12 @@ export function Header({ currentPage, onNavigate, cartCount, currentUser }: Head
             onClick={() => onNavigate('home')}
             className="text-2xl font-bold tracking-tight hover:text-primary transition-colors"
           >
-            <span className="text-primary">CHUVEL</span>
-            <span className="text-secondary ml-1">THREADS</span>
-          </button>
+            <img 
+    src={yourLogo} 
+    alt="Chuvel Threads Logo" 
+    className="h-10" /* You can adjust this size */
+  />
+</button>
 
           {/* Desktop Navigation */}
           <nav className="hidden md:flex items-center space-x-8">
