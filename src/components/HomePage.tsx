@@ -4,7 +4,7 @@ import { Button } from './ui/button'
 import { Card, CardContent } from './ui/card'
 import { Badge } from './ui/badge'
 import { ImageWithFallback } from './figma/ImageWithFallback'
-import heroImage from '../assets/chuvel-hero.jpg
+import heroImage from '../assets/chuvel-hero.jpg';
 
 
 interface HomePageProps {
