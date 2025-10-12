@@ -162,7 +162,7 @@ export function HomePage({ onNavigate, onAddToCart, currentUser }: HomePageProps
                 transition={{ duration: 1.2, delay: 0.3, ease: "easeOut" }}
                 whileHover={{ scale: 1.02, transition: { duration: 0.3 } }}
               >
-                <div className="space-y-6">
+                <div className="space-y-6 text-left">
                   <motion.div 
                     className="flex items-center gap-3"
                     initial={{ opacity: 0, y: 20 }}
@@ -189,7 +189,7 @@ export function HomePage({ onNavigate, onAddToCart, currentUser }: HomePageProps
                       animate={{ backgroundPosition: '100% 50%' }}
                       transition={{ duration: 3, repeat: Infinity, repeatType: 'reverse' }}
                     >
-                      Premium
+                      PREMUIM
                     </motion.span>
                     <br />
                     <motion.span 
@@ -198,7 +198,7 @@ export function HomePage({ onNavigate, onAddToCart, currentUser }: HomePageProps
                       animate={{ opacity: 1 }}
                       transition={{ delay: 1 }}
                     >
-                      Universal
+                      UNIVERSAL
                     </motion.span>
                     <br />
                     <motion.span 
@@ -207,7 +207,7 @@ export function HomePage({ onNavigate, onAddToCart, currentUser }: HomePageProps
                       animate={{ backgroundPosition: '100% 50%' }}
                       transition={{ duration: 3, repeat: Infinity, repeatType: 'reverse', delay: 0.5 }}
                     >
-                      Styles
+                      STYLES
                     </motion.span>
                   </motion.h1>
                   
