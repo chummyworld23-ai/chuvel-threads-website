@@ -76,7 +76,7 @@ export function AdminPanel({ onClose }: AdminPanelProps) {
 
   const [contentSections, setContentSections] = useState({
     hero: {
-      title: 'TRADITION MEETS INNOVATION',
+      title: 'Premium Male and Unisex Fashion',
       subtitle: 'Experience the perfect fusion of Nigerian heritage and contemporary design',
       image: 'https://images.unsplash.com/photo-1756485161657-e005fc9e4393',
       buttonText: 'Explore Collection'

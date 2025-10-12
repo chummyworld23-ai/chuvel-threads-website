@@ -217,7 +217,7 @@ export function HomePage({ onNavigate, onAddToCart, currentUser }: HomePageProps
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.8, delay: 1.2 }}
                   >
-                    Premium male & unisex fashion | Crafting timeless senator wears & urban styles. From luxury Agbadas to modern streetwear.
+                    Crafting timeless senator wears & urban styles. From luxury Agbadas to modern streetwear.
                   </motion.p>
                   
                   <div className="flex flex-col sm:flex-row gap-4">
