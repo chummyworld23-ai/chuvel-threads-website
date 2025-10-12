@@ -4,7 +4,8 @@ import { Button } from './ui/button'
 import { Input } from './ui/input'
 import { authService } from '../lib/supabaseService'
 import { toast } from "sonner"
-import yourLogo from '../assets/Logo.png';
+import logoImage from '../assets/logo.png'
+
 interface HeaderProps {
   currentPage: string
   onNavigate: (page: string) => void
@@ -46,17 +47,29 @@ export function Header({ currentPage, onNavigate, cartCount, currentUser }: Head
           {/* Logo */}
           <button 
             onClick={() => onNavigate('home')}
-            className="text-2xl font-bold tracking-tight hover:text-primary transition-colors"
+            className="flex items-center space-x-2 hover:opacity-80 transition-opacity"
           >
             <img 
-    src={yourLogo} 
-    alt="Chuvel Threads Logo" 
-    className="h-[200px]"
-  />
-</button>
+              src={logoImage} 
+              alt="Chuvel Threads" 
+              className="h-10 w-auto"
+              onError={(e) => {
+                // Fallback to text logo if image fails to load
+                e.currentTarget.style.display = 'none'
+                e.currentTarget.nextElementSibling!.style.display = 'block'
+              }}
+            />
+            <div 
+              className="text-2xl font-bold tracking-tight"
+              style={{ display: 'none' }}
+            >
+              <span className="text-primary">CHUVEL</span>
+              <span className="text-secondary ml-1">THREADS</span>
+            </div>
+          </button>
 
           {/* Desktop Navigation */}
-          <nav className="hidden md:flex items-center space-x-8">
+          <nav className="hidden lg:flex items-center space-x-8">
             {navigation.map((item) => (
               <button
                 key={item.id}
@@ -120,7 +133,7 @@ export function Header({ currentPage, onNavigate, cartCount, currentUser }: Head
                 <div className="hidden sm:flex items-center space-x-3">
                   <div className="text-right">
                     <p className="text-sm text-foreground">
-                      {currentUser.displayName || currentUser.email}
+ {currentUser.user_metadata?.full_name || currentUser.email}
                     </p>
                   </div>
                   <Button
@@ -183,7 +196,7 @@ export function Header({ currentPage, onNavigate, cartCount, currentUser }: Head
               variant="ghost"
               size="icon"
               onClick={() => setIsMenuOpen(!isMenuOpen)}
-              className="md:hidden hover:bg-primary/10"
+              className="lg:hidden hover:bg-primary/10"
             >
               {isMenuOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
             </Button>

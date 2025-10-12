@@ -164,7 +164,7 @@ export function HomePage({ onNavigate, onAddToCart, currentUser }: HomePageProps
                 transition={{ duration: 1.2, delay: 0.3, ease: "easeOut" }}
                 whileHover={{ scale: 1.02, transition: { duration: 0.3 } }}
               >
-                <div className="space-y-6 text-left">
+                <div className="space-y-6">
                   <motion.div 
                     className="flex items-center gap-3"
                     initial={{ opacity: 0, y: 20 }}
@@ -219,7 +219,7 @@ export function HomePage({ onNavigate, onAddToCart, currentUser }: HomePageProps
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.8, delay: 1.2 }}
                   >
-                    Crafting timeless senator wears & urban styles. From luxury Agbadas to modern streetwear.
+                    Experience the perfect fusion of Nigerian heritage and contemporary design. From luxury Agbadas to modern streetwear.
                   </motion.p>
                   
                   <div className="flex flex-col sm:flex-row gap-4">
@@ -259,16 +259,15 @@ export function HomePage({ onNavigate, onAddToCart, currentUser }: HomePageProps
             </motion.div>
 
             {/* Right Image */}
-            <div className="relative hidden md:block">
+            <div className="relative md:block hidden">
               <div className="bg-[#1C1C1C] border border-white/10 rounded-2xl p-4 shadow-2xl">
-                <img
-                src={heroImage}
-                alt="TEST IMAGE"
-                className="w-full h-[600px] object-cover rounded-xl"
-                />
+              <img
+  src={"https://images.unsplash.com/photo-1617137985492-1b1a774b4b8a"}
+  alt="TEST IMAGE FROM WEB"
+  className="h-[600px] w-full rounded-xl object-cover"
+/>
               </div>
-
-              {/* Floating accent elements (moved inside right column) */}
+              {/* Floating accent elements */}
               <div className="absolute -top-8 -right-8 w-32 h-32 bg-gradient-to-br from-primary/20 to-secondary/20 rounded-full blur-xl"></div>
               <div className="absolute -bottom-8 -left-8 w-24 h-24 bg-gradient-to-tr from-secondary/20 to-primary/20 rounded-full blur-lg"></div>
             </div>
