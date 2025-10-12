@@ -4,7 +4,6 @@ import { Button } from './ui/button'
 import { Card, CardContent } from './ui/card'
 import { Badge } from './ui/badge'
 import { ImageWithFallback } from './figma/ImageWithFallback'
-import heroImage from '../assets/chuvel-hero.jpg
 
 
 interface HomePageProps {
@@ -164,7 +163,7 @@ export function HomePage({ onNavigate, onAddToCart, currentUser }: HomePageProps
                 transition={{ duration: 1.2, delay: 0.3, ease: "easeOut" }}
                 whileHover={{ scale: 1.02, transition: { duration: 0.3 } }}
               >
-                <div className="space-y-6">
+                <div className="space-y-6 text-left">
                   <motion.div 
                     className="flex items-center gap-3"
                     initial={{ opacity: 0, y: 20 }}
@@ -191,7 +190,7 @@ export function HomePage({ onNavigate, onAddToCart, currentUser }: HomePageProps
                       animate={{ backgroundPosition: '100% 50%' }}
                       transition={{ duration: 3, repeat: Infinity, repeatType: 'reverse' }}
                     >
-                      STYLES
+                      PREMUIM
                     </motion.span>
                     <br />
                     <motion.span 
@@ -219,7 +218,7 @@ export function HomePage({ onNavigate, onAddToCart, currentUser }: HomePageProps
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.8, delay: 1.2 }}
                   >
-                    Experience the perfect fusion of Nigerian heritage and contemporary design. From luxury Agbadas to modern streetwear.
+                    Crafting timeless senator wears & urban styles. From luxury Agbadas to modern streetwear.
                   </motion.p>
                   
                   <div className="flex flex-col sm:flex-row gap-4">
@@ -246,9 +245,9 @@ export function HomePage({ onNavigate, onAddToCart, currentUser }: HomePageProps
               {/* Stats with glassy effect */}
               <div className="grid grid-cols-3 gap-4">
                 {[
-                  { label: 'Happy Customers', value: '500+' },
+                  { label: 'Happy Customers', value: '5000+' },
                   { label: 'Premium Products', value: '200+' },
-                  { label: 'Years Experience', value: '2+' }
+                  { label: 'Years Experience', value: '4+' }
                 ].map((stat, index) => (
                   <div key={index} className="backdrop-blur-lg bg-card/20 border border-primary/10 rounded-xl p-4 text-center">
                     <div className="text-lg text-primary">{stat.value}</div>
@@ -260,13 +259,16 @@ export function HomePage({ onNavigate, onAddToCart, currentUser }: HomePageProps
 
             {/* Right Image */}
             <div className="relative md:block hidden">
-              <div className="bg-[#1C1C1C] border border-white/10 rounded-2xl p-4 shadow-2xl">
-              <ImageWithFallback
-              src={heroImage}  {/* This uses the local image you imported */}
-              alt="A model wearing a Chuvel Threads traditional blue and black robe"
-              className="w-full h-[600px] object-cover rounded-xl"
-              />
-              </div>
+              <div className="relative">
+                {/* Glassy frame */}
+                <div className="absolute inset-0 backdrop-blur-xl bg-gradient-to-br from-primary/10 to-secondary/10 rounded-3xl border border-primary/20 shadow-2xl"></div>
+                <div className="relative p-8">
+                  <ImageWithFallback
+                    src="https://images.unsplash.com/photo-1756485161657-e005fc9e4393?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxhZnJpY2FuJTIwbW9kZWwlMjB3ZWFyaW5nJTIwdHJhZGl0aW9uYWwlMjBhZ2JhZGElMjBzZW5hdG9yJTIwZmFzaGlvbiUyMHBvcnRyYWl0fGVufDF8fHx8MTc1OTYwNDk2NXww&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral"
+                    alt="Traditional Nigerian Fashion"
+                    className="w-full h-[600px] object-cover rounded-2xl shadow-xl"
+                  />
+                </div>
               </div>
 
               {/* Floating accent elements */}
