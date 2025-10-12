@@ -27,7 +27,7 @@ export function ChatIntegrations() {
 
   const handleWhatsAppClick = () => {
     const message = encodeURIComponent("Hello! I'm interested in your Nigerian traditional wear collections.")
-    const whatsappUrl = `https://wa.me/2349012345678?text=${message}`
+    const whatsappUrl = `https://wa.me/2347032603312?text=${message}`
     window.open(whatsappUrl, '_blank')
   }
 
