@@ -259,17 +259,16 @@ export function HomePage({ onNavigate, onAddToCart, currentUser }: HomePageProps
             </motion.div>
 
             {/* Right Image */}
-            <div className="relative md:block hidden">
+            <div className="relative hidden md:block">
               <div className="bg-[#1C1C1C] border border-white/10 rounded-2xl p-4 shadow-2xl">
-              <ImageWithFallback
-              src={heroImage}  
-              alt="A model wearing a Chuvel Threads traditional blue and black robe"
-              className="w-full h-[600px] object-cover rounded-xl"
-              />
-              </div>
+                <ImageWithFallback
+                  src={heroImage}
+                  alt="A model wearing a Chuvel Threads traditional blue and black robe"
+                  className="w-full h-[600px] object-cover rounded-xl"
+                />
               </div>
 
-              {/* Floating accent elements */}
+              {/* Floating accent elements (moved inside right column) */}
               <div className="absolute -top-8 -right-8 w-32 h-32 bg-gradient-to-br from-primary/20 to-secondary/20 rounded-full blur-xl"></div>
               <div className="absolute -bottom-8 -left-8 w-24 h-24 bg-gradient-to-tr from-secondary/20 to-primary/20 rounded-full blur-lg"></div>
             </div>
