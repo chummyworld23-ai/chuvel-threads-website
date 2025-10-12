@@ -189,7 +189,7 @@ export function HomePage({ onNavigate, onAddToCart, currentUser }: HomePageProps
                       animate={{ backgroundPosition: '100% 50%' }}
                       transition={{ duration: 3, repeat: Infinity, repeatType: 'reverse' }}
                     >
-                      TRADITION
+                      Premium
                     </motion.span>
                     <br />
                     <motion.span 
@@ -198,7 +198,7 @@ export function HomePage({ onNavigate, onAddToCart, currentUser }: HomePageProps
                       animate={{ opacity: 1 }}
                       transition={{ delay: 1 }}
                     >
-                      MEETS
+                      Universal
                     </motion.span>
                     <br />
                     <motion.span 
@@ -207,7 +207,7 @@ export function HomePage({ onNavigate, onAddToCart, currentUser }: HomePageProps
                       animate={{ backgroundPosition: '100% 50%' }}
                       transition={{ duration: 3, repeat: Infinity, repeatType: 'reverse', delay: 0.5 }}
                     >
-                      INNOVATION
+                      Styles
                     </motion.span>
                   </motion.h1>
                   
