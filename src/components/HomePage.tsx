@@ -68,16 +68,23 @@ export function HomePage({ onNavigate, onAddToCart, currentUser }: HomePageProps
 
   const testimonials = [
     {
-      name: 'Adebayo Okafor',
+      name: 'Chizuru J. Azuka (Aba)',
       role: 'Fashion Enthusiast',
       content: 'The quality of Chuvel Threads is unmatched. My senator fits perfectly and looks absolutely premium.',
       rating: 5,
       avatar: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&h=100&fit=crop&crop=face'
     },
     {
-      name: 'Kemi Adebisi',
+      name: 'Okol c. Praise (Euugu)',
       role: 'Style Blogger',
-      content: 'Love the fusion of traditional and modern styles. The streetwear collection is fire!',
+      content: 'I have been eyeing Chuvel for months on Instagram, and finally decided to treat myself one of the image vintage shirt for a gathering. And Hallelujah, the hype is real!',
+      rating: 5,
+      avatar: 'https://images.unsplash.com/photo-1494790108755-2616b612b436?w=100&h=100&fit=crop&crop=face'
+    },
+    {
+      name: 'Chioma F. Anyagwa (port Harcourt)',
+      role: 'Style Blogger',
+      content: 'I spent about 45 minutes on the Chuvel Threads website last night trying to buy a few pieces, and honestly, it was a mixed bag',
       rating: 5,
       avatar: 'https://images.unsplash.com/photo-1494790108755-2616b612b436?w=100&h=100&fit=crop&crop=face'
     }
@@ -210,7 +217,7 @@ export function HomePage({ onNavigate, onAddToCart, currentUser }: HomePageProps
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.8, delay: 1.2 }}
                   >
-                    Experience the perfect fusion of Nigerian heritage and contemporary design. From luxury Agbadas to modern streetwear.
+                    Premium male & unisex fashion | Crafting timeless senator wears & urban styles. From luxury Agbadas to modern streetwear.
                   </motion.p>
                   
                   <div className="flex flex-col sm:flex-row gap-4">
