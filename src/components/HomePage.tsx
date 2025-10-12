@@ -75,14 +75,14 @@ export function HomePage({ onNavigate, onAddToCart, currentUser }: HomePageProps
       avatar: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&h=100&fit=crop&crop=face'
     },
     {
-      name: 'Okol c. Praise (Euugu)',
+      name: 'Okoli C. Praise (Euugu)',
       role: 'Style Blogger',
       content: 'I have been eyeing Chuvel for months on Instagram, and finally decided to treat myself one of the image vintage shirt for a gathering. And Hallelujah, the hype is real!',
       rating: 5,
       avatar: 'https://images.unsplash.com/photo-1494790108755-2616b612b436?w=100&h=100&fit=crop&crop=face'
     },
     {
-      name: 'Chioma F. Anyagwa (port Harcourt)',
+      name: 'Chioma F. Anyagwa (Port Harcourt)',
       role: 'Style Blogger',
       content: 'I spent about 45 minutes on the Chuvel Threads website last night trying to buy a few pieces, and honestly, it was a mixed bag',
       rating: 5,
@@ -174,7 +174,7 @@ export function HomePage({ onNavigate, onAddToCart, currentUser }: HomePageProps
                       animate={{ scale: [1, 1.2, 1] }}
                       transition={{ duration: 2, repeat: Infinity }}
                     ></motion.div>
-                    <span className="text-sm uppercase tracking-wide text-primary/80">Premium Fashion</span>
+                    <span className="text-sm uppercase tracking-wide text-primary/80">Chuvel Threads</span>
                   </motion.div>
                   
                   <motion.h1 

@@ -226,7 +226,7 @@ export default function App() {
                   <div className="space-y-4">
                     <div>
                       <h3 className="text-lg text-primary mb-1">WhatsApp</h3>
-                      <p className="text-foreground/70">+234 (0) 901 234 5678</p>
+                      <p className="text-foreground/70">+234 (0) 703 260 3312</p>
                     </div>
                     <div>
                       <h3 className="text-lg text-primary mb-1">Email</h3>
