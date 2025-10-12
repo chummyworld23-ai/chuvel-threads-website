@@ -262,7 +262,7 @@ export function HomePage({ onNavigate, onAddToCart, currentUser }: HomePageProps
             <div className="relative md:block hidden">
               <div className="bg-[#1C1C1C] border border-white/10 rounded-2xl p-4 shadow-2xl">
               <ImageWithFallback
-              src={heroImage}  {/* This uses the local image you imported */}
+              src={heroImage}  
               alt="A model wearing a Chuvel Threads traditional blue and black robe"
               className="w-full h-[600px] object-cover rounded-xl"
               />
