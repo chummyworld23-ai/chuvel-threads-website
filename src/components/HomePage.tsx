@@ -262,9 +262,9 @@ export function HomePage({ onNavigate, onAddToCart, currentUser }: HomePageProps
                 <div className="absolute inset-0 backdrop-blur-xl bg-gradient-to-br from-primary/10 to-secondary/10 rounded-3xl border border-primary/20 shadow-2xl"></div>
                 <div className="relative p-4 md:p-8">
                   <ImageWithFallback
-                    src="https://images.unsplash.com/photo-1756485161657-e005fc9e4393?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxhZnJpY2FuJTIwbW9kZWwlMjB3ZWFyaW5nJTIwdHJhZGl0aW9uYWwlMjBhZ2JhZGElMjBzZW5hdG9yJTIwZmFzaGlvbiUyMHBvcnRyYWl0fGVufDF8fHx8MTc1OTYwNDk2NXww&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral"
-                    alt="Traditional Nigerian Fashion"
-                    className="w-full h-[400px] md:h-[500px] lg:h-[600px] object-cover rounded-2xl shadow-xl"
+                  src={heroImage}
+                  alt="Chuvel Threads Grand Launch Announcement"
+                  className="w-full h-auto object-contain rounded-2xl shadow-xl"
                   />
                 </div>
               </div>
