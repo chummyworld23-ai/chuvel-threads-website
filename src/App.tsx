@@ -19,24 +19,38 @@ export default function App() {
   const [isAdminOpen, setIsAdminOpen] = useState(false);
   const [currentUser, setCurrentUser] = useState<any>(null);
 
-  useEffect(() => {
-    const checkSession = async () => {
-      const { data } = await authService.getSession(); 
-      if (data?.session?.user) {
-        setCurrentUser(data.session.user);
-        setIsLoginOpen(false);
-        setIsSignupOpen(false);
+  // Assuming authService.onAuthStateChange maps directly to:
+// supabase.auth.onAuthStateChange((event, session) => { ... })
+
+useEffect(() => {
+  const {
+    data: { subscription }, // Use the subscription data returned by the Supabase listener
+  } = authService.onAuthStateChange((event, session) => {
+    
+    // 1. Initial Load & OAuth Callback Handling
+    if (session) {
+      setCurrentUser(session.user);
+      setIsLoginOpen(false);
+      setIsSignupOpen(false);
+      
+      // 2. Critical: Clear the URL fragment after the session is set
+      // This is what prevents the refresh from losing the session.
+      if (window.location.hash.includes('access_token')) {
         window.history.replaceState(null, '', window.location.pathname);
       }
-    };
-    checkSession();
+    } else {
+      // User signed out or no session found
+      setCurrentUser(null);
+    }
+  });
 
-    const unsubscribe = authService.onAuthStateChange((user) => {
-      setCurrentUser(user);
-    });
-
-    return () => unsubscribe();
-  }, []);
+  // The cleanup function should unsubscribe the listener
+  return () => {
+    if (subscription) {
+      subscription.unsubscribe();
+    }
+  };
+}, []);
 
   const handleNavigate = (page: string) => {
     if (page === "login") {

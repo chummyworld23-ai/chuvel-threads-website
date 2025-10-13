@@ -180,7 +180,7 @@ export function AuthModals({
       
       await authService.updateUserProfile(profileCompletionData.id, {
         phone: fullPhone,
-        date_of_birth: dateOfBirth
+        date_of_birth: dateOfBirthgggth
       })
 
       toast.success('Profile completed successfully!')
