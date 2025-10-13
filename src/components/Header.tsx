@@ -1,12 +1,12 @@
 // src/components/Header.tsx
 
 import { useState } from 'react';
-import { Menu, Search, ShoppingCart, User, X, LogOut } from 'lucide-react';
+import { Menu, Search, ShoppingCart, X, } from 'lucide-react';
 import { Button } from './ui/button';
 import { Input } from './ui/input';
-import { authService } from '../lib/supabaseService';
 import { toast } from 'sonner';
 import yourLogo from '../assets/Logo.png';
+import { supabase } from '../lib/supabase'; 
 
 interface HeaderProps {
   currentPage: string;
@@ -19,15 +19,18 @@ export function Header({ currentPage, onNavigate, cartCount, currentUser }: Head
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isSearchOpen, setIsSearchOpen] = useState(false);
 
-  const handleLogout = async () => {
-    try {
-      await authService.signOut();
-      toast.success('Logged out successfully');
-      onNavigate('home');
-    } catch (error) {
-      toast.error((error as any)?.message || 'Logout failed');
-    }
-  };
+const handleLogout = async () => {
+  try {
+    // Call the signOut method from the main supabase client
+    const { error } = await supabase.auth.signOut();
+    if (error) throw error;
+    
+    toast.success('Logged out successfully');
+    // The onAuthStateChange listener in App.tsx will automatically handle the UI update
+  } catch (error) {
+    toast.error((error as any)?.message || 'Logout failed');
+  }
+};
 
   const navigation = [
     { name: 'Home', id: 'home' },
