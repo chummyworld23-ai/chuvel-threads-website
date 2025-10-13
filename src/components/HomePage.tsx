@@ -156,7 +156,7 @@ export function HomePage({ onNavigate, onAddToCart, currentUser }: HomePageProps
                 transition={{ duration: 1.2, delay: 0.3, ease: "easeOut" }}
                 whileHover={{ scale: 1.02, transition: { duration: 0.3 } }}
               >
-                <div className="space-y-6">
+                <div className="space-y-6 text-left">
                   <motion.div 
                     className="flex items-center gap-3"
                     initial={{ opacity: 0, y: 20 }}
@@ -168,7 +168,7 @@ export function HomePage({ onNavigate, onAddToCart, currentUser }: HomePageProps
                       animate={{ scale: [1, 1.2, 1] }}
                       transition={{ duration: 2, repeat: Infinity }}
                     ></motion.div>
-                    <span className="text-sm uppercase tracking-wide text-primary/80">Premium Fashion</span>
+                    <span className="text-sm uppercase tracking-wide text-primary/80">Chuvel Threads</span>
                   </motion.div>
                   
                   <motion.h1 
@@ -183,7 +183,7 @@ export function HomePage({ onNavigate, onAddToCart, currentUser }: HomePageProps
                       animate={{ backgroundPosition: '100% 50%' }}
                       transition={{ duration: 3, repeat: Infinity, repeatType: 'reverse' }}
                     >
-                      TRADITION
+                      PREMIUM
                     </motion.span>
                     <br />
                     <motion.span 
@@ -192,7 +192,7 @@ export function HomePage({ onNavigate, onAddToCart, currentUser }: HomePageProps
                       animate={{ opacity: 1 }}
                       transition={{ delay: 1 }}
                     >
-                      MEETS
+                      UNIVERSAL
                     </motion.span>
                     <br />
                     <motion.span 
@@ -201,7 +201,7 @@ export function HomePage({ onNavigate, onAddToCart, currentUser }: HomePageProps
                       animate={{ backgroundPosition: '100% 50%' }}
                       transition={{ duration: 3, repeat: Infinity, repeatType: 'reverse', delay: 0.5 }}
                     >
-                      INNOVATION
+                      STYLES
                     </motion.span>
                   </motion.h1>
                   
@@ -211,7 +211,7 @@ export function HomePage({ onNavigate, onAddToCart, currentUser }: HomePageProps
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.8, delay: 1.2 }}
                   >
-                    Experience the perfect fusion of Nigerian heritage and contemporary design. From luxury Agbadas to modern streetwear.
+                    Crafting timeless senator wears & urban styles. From luxury Agbadas to modern streetwear.
                   </motion.p>
                   
                   <div className="flex flex-col sm:flex-row gap-4">
@@ -541,33 +541,47 @@ export function HomePage({ onNavigate, onAddToCart, currentUser }: HomePageProps
         </div>
       </section>
 
-      {/* Social Links */}
-      <section className="py-12 border-t border-primary/20">
-        <div className="container mx-auto px-4">
-          <div className="flex flex-col md:flex-row items-center justify-between gap-4">
-            <div className="flex items-center gap-4">
-              <Button variant="ghost" size="icon" className="hover:bg-primary/10 hover:text-primary transition-colors">
-                <Instagram className="h-5 w-5" />
-              </Button>
-              <Button variant="ghost" size="icon" className="hover:bg-primary/10 hover:text-primary transition-colors">
-                <Twitter className="h-5 w-5" />
-              </Button>
-              <Button variant="ghost" size="icon" className="hover:bg-primary/10 hover:text-primary transition-colors">
-                <Facebook className="h-5 w-5" />
-              </Button>
-              <Button variant="ghost" size="icon" className="hover:bg-primary/10 hover:text-primary transition-colors">
-                <Youtube className="h-5 w-5" />
-              </Button>
-              <Button variant="ghost" size="icon" className="hover:bg-primary/10 hover:text-primary transition-colors">
-                <MessageCircle className="h-5 w-5" />
-              </Button>
-            </div>
-            <p className="text-sm text-foreground/60">
-              © 2024 Chuvel Threads. All rights reserved.
-            </p>
-          </div>
-        </div>
-      </section>
+      {/* Social Links & Footer */}
+<section className="border-t border-primary/20 py-12">
+  <div className="container mx-auto px-4">
+    <div className="flex flex-col items-center justify-between gap-4 md:flex-row">
+      <div className="flex items-center gap-4">
+
+        {/* Instagram */}
+        <a href="https://www.instagram.com/chuvel_threads" target="_blank" rel="noopener noreferrer">
+          <Button variant="ghost" size="icon" className="transition-colors hover:bg-primary/10 hover:text-primary">
+            <Instagram className="h-5 w-5" />
+          </Button>
+        </a>
+
+        {/* Facebook */}
+        <a href="https://web.facebook.com/profile.php?id=61581968367375" target="_blank" rel="noopener noreferrer">
+          <Button variant="ghost" size="icon" className="transition-colors hover:bg-primary/10 hover:text-primary">
+            <Facebook className="h-5 w-5" />
+          </Button>
+        </a>
+        
+        {/* TikTok (using Music icon as a placeholder) */}
+        <a href="https://www.tiktok.com/@chuvel_threads" target="_blank" rel="noopener noreferrer">
+          <Button variant="ghost" size="icon" className="transition-colors hover:bg-primary/10 hover:text-primary">
+            <Music className="h-5 w-5" />
+          </Button>
+        </a>
+
+        {/* YouTube */}
+        <a href="https://www.youtube.com/your-channel-link" target="_blank" rel="noopener noreferrer">
+          <Button variant="ghost" size="icon" className="transition-colors hover:bg-primary/10 hover:text-primary">
+            <Youtube className="h-5 w-5" />
+          </Button>
+        </a>
+
+      </div>
+      <p className="text-sm text-foreground/60">
+        © 2025 Chuvel Threads. All rights reserved.
+      </p>
+    </div>
+  </div>
+</section>
 
       {/* WhatsApp Floating Button */}
       <div className="fixed bottom-6 right-6 z-50">

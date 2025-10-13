@@ -51,7 +51,7 @@ export function Header({ currentPage, onNavigate, cartCount, currentUser }: Head
             <img 
     src={yourLogo} 
     alt="Chuvel Threads Logo" 
-    className="h-[200px]"
+    className="h-12 w-auto md:h-16"
   />
 </button>
 
