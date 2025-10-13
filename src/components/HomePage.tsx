@@ -144,7 +144,7 @@ export function HomePage({ onNavigate, onAddToCart, currentUser }: HomePageProps
           <div className="grid lg:grid-cols-2 gap-12 items-center">
             {/* Left Content */}
             <motion.div 
-              className="space-y-8"
+              className="space-y-8 text-left"
               initial={{ opacity: 0, x: -50 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 1, ease: "easeOut" }}
@@ -338,7 +338,7 @@ export function HomePage({ onNavigate, onAddToCart, currentUser }: HomePageProps
                     } rounded-full blur-xl group-hover:blur-2xl transition-all duration-500`}></div>
                   </div>
                   
-                  <div className="space-y-3">
+                  <div className="space-y-3 text-left">
                     <h3 className="text-xl text-primary group-hover:text-secondary transition-colors">
                       {category.name}
                     </h3>
@@ -428,7 +428,7 @@ export function HomePage({ onNavigate, onAddToCart, currentUser }: HomePageProps
                     } rounded-full blur-xl group-hover:blur-2xl transition-all duration-500`}></div>
                   </div>
                   
-                  <div className="p-6 space-y-4">
+                  <div className="p-6 space-y-4 text-left">
                     <div>
                       <h3 className="text-lg mb-2 group-hover:text-primary transition-colors">
                         {product.name}
