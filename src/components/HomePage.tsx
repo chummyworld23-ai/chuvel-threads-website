@@ -144,7 +144,7 @@ export function HomePage({ onNavigate, onAddToCart, currentUser }: HomePageProps
           <div className="grid lg:grid-cols-2 gap-12 items-center">
             {/* Left Content */}
             <motion.div 
-              className="space-y-8 text-left"
+              className="space-y-8"
               initial={{ opacity: 0, x: -50 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 1, ease: "easeOut" }}

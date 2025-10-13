@@ -19,6 +19,7 @@ export default function App() {
   const [isAdminOpen, setIsAdminOpen] = useState(false);
   const [currentUser, setCurrentUser] = useState<any>(null);
 
+  // ✅ FIXED useEffect HOOK (Solves the session persistence and 'subscription' TypeError)
   useEffect(() => {
     // Capture the entire result object, which should contain { data: { subscription } }
     const listenerResult = authService.onAuthStateChange((event, session) => {
@@ -64,10 +65,7 @@ export default function App() {
     setCurrentPage(page);
   };
   
-  // You need a JSX return statement for your component here.
-  // ...
-  
-}
+  // ⬅️ ERROR WAS HERE! This is where the App function definition was prematurely closed.
 
   const handleAddToCart = (product: any) => {
     if (!currentUser) {
