@@ -1,10 +1,10 @@
-import { ArrowRight, Star, Instagram, MessageCircle, Twitter, Facebook, Twitch, MessageSquare, } from 'lucide-react'
+import { ArrowRight, Star, Instagram, MessageCircle, Twitter, Facebook, Twitch, MessageSquare, Youtube } from 'lucide-react'
 import { motion } from 'framer-motion'
 import { Button } from './ui/button'
 import { Card, CardContent } from './ui/card'
 import { Badge } from './ui/badge'
 import { ImageWithFallback } from './figma/ImageWithFallback'
-
+import heroImage from '../assets/chuvel-hero.jpg';
 
 interface HomePageProps {
   onNavigate: (page: string) => void
