@@ -167,11 +167,13 @@ export function Header({ currentPage, onNavigate, cartCount, currentUser }: Head
               )}
                <div className="mt-6 border-t border-white/10 pt-6">
                 {currentUser ? (
-                  <Button onClick={handleLogout} className="w-full">Logout</Button>
+                 <Button onClick={handleLogout} className="w-full">Logout</Button>
                 ) : (
-                  <Button onClick={() => onNavigate('login')} className="w-full">Login</Button>
-                )}
-              </div>
+                <div className="flex w-full gap-4">
+                  <Button onClick={() => onNavigate('login')} className="flex-1">Login</Button>
+                  <Button onClick={() => onNavigate('signup')} variant="outline" className="flex-1">Sign Up</Button></div>
+                 )}
+                 </div>
             </nav>
           </div>
         </div>
