@@ -1,10 +1,9 @@
-import { ArrowRight, Star, Instagram, MessageCircle, Twitter, Facebook, Twitch, MessageSquare, } from 'lucide-react'
-import { motion } from 'framer-motion'
+import { ArrowRight, Star, Instagram, MessageCircle, Twitter, Facebook, Youtube, MessageSquare } from 'lucide-react'
+import { motion } from 'motion/react'
 import { Button } from './ui/button'
 import { Card, CardContent } from './ui/card'
 import { Badge } from './ui/badge'
 import { ImageWithFallback } from './figma/ImageWithFallback'
-import heroImage from '../assets/Logo.png';
 
 interface HomePageProps {
   onNavigate: (page: string) => void
@@ -69,23 +68,16 @@ export function HomePage({ onNavigate, onAddToCart, currentUser }: HomePageProps
 
   const testimonials = [
     {
-      name: 'Chizuru J. Azuka (Aba)',
+      name: 'Adebayo Okafor',
       role: 'Fashion Enthusiast',
       content: 'The quality of Chuvel Threads is unmatched. My senator fits perfectly and looks absolutely premium.',
       rating: 5,
       avatar: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&h=100&fit=crop&crop=face'
     },
     {
-      name: 'Okoli C. Praise (Euugu)',
+      name: 'Kemi Adebisi',
       role: 'Style Blogger',
-      content: 'I have been eyeing Chuvel for months on Instagram, and finally decided to treat myself one of the image vintage shirt for a gathering. And Hallelujah, the hype is real!',
-      rating: 5,
-      avatar: 'https://images.unsplash.com/photo-1494790108755-2616b612b436?w=100&h=100&fit=crop&crop=face'
-    },
-    {
-      name: 'Chioma F. Anyagwa (Port Harcourt)',
-      role: 'Style Blogger',
-      content: 'I spent about 45 minutes on the Chuvel Threads website last night trying to buy a few pieces, and honestly, it was a mixed bag',
+      content: 'Love the fusion of traditional and modern styles. The streetwear collection is fire!',
       rating: 5,
       avatar: 'https://images.unsplash.com/photo-1494790108755-2616b612b436?w=100&h=100&fit=crop&crop=face'
     }
@@ -175,7 +167,7 @@ export function HomePage({ onNavigate, onAddToCart, currentUser }: HomePageProps
                       animate={{ scale: [1, 1.2, 1] }}
                       transition={{ duration: 2, repeat: Infinity }}
                     ></motion.div>
-                    <span className="text-sm uppercase tracking-wide text-primary/80">Chuvel Threads</span>
+                    <span className="text-sm uppercase tracking-wide text-primary/80">Premium Fashion</span>
                   </motion.div>
                   
                   <motion.h1 
@@ -190,7 +182,7 @@ export function HomePage({ onNavigate, onAddToCart, currentUser }: HomePageProps
                       animate={{ backgroundPosition: '100% 50%' }}
                       transition={{ duration: 3, repeat: Infinity, repeatType: 'reverse' }}
                     >
-                      PREMUIM
+                      TRADITION
                     </motion.span>
                     <br />
                     <motion.span 
@@ -199,7 +191,7 @@ export function HomePage({ onNavigate, onAddToCart, currentUser }: HomePageProps
                       animate={{ opacity: 1 }}
                       transition={{ delay: 1 }}
                     >
-                      UNIVERSAL
+                      MEETS
                     </motion.span>
                     <br />
                     <motion.span 
@@ -208,7 +200,7 @@ export function HomePage({ onNavigate, onAddToCart, currentUser }: HomePageProps
                       animate={{ backgroundPosition: '100% 50%' }}
                       transition={{ duration: 3, repeat: Infinity, repeatType: 'reverse', delay: 0.5 }}
                     >
-                      STYLES
+                      INNOVATION
                     </motion.span>
                   </motion.h1>
                   
@@ -245,9 +237,9 @@ export function HomePage({ onNavigate, onAddToCart, currentUser }: HomePageProps
               {/* Stats with glassy effect */}
               <div className="grid grid-cols-3 gap-4">
                 {[
-                  { label: 'Happy Customers', value: '500+' },
+                  { label: 'Happy Customers', value: '5000+' },
                   { label: 'Premium Products', value: '200+' },
-                  { label: 'Years Experience', value: '2+' }
+                  { label: 'Years Experience', value: '4+' }
                 ].map((stat, index) => (
                   <div key={index} className="backdrop-blur-lg bg-card/20 border border-primary/10 rounded-xl p-4 text-center">
                     <div className="text-lg text-primary">{stat.value}</div>
@@ -257,19 +249,29 @@ export function HomePage({ onNavigate, onAddToCart, currentUser }: HomePageProps
               </div>
             </motion.div>
 
-            {/* Right Image */}
-            <div className="relative md:block hidden">
-              <div className="bg-[#1C1C1C] border border-white/10 rounded-2xl p-4 shadow-2xl">
-              <img
-  src={"https://images.unsplash.com/photo-1617137985492-1b1a774b4b8a"}
-  alt="TEST IMAGE FROM WEB"
-  className="h-[600px] w-full rounded-xl object-cover"
-/>
+            {/* Right Image - Now Responsive */}
+            <motion.div 
+              className="relative mt-12 lg:mt-0"
+              initial={{ opacity: 0, x: 50 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 1, delay: 0.5, ease: "easeOut" }}
+            >
+              <div className="relative">
+                {/* Glassy frame */}
+                <div className="absolute inset-0 backdrop-blur-xl bg-gradient-to-br from-primary/10 to-secondary/10 rounded-3xl border border-primary/20 shadow-2xl"></div>
+                <div className="relative p-4 md:p-8">
+                  <ImageWithFallback
+                    src="https://images.unsplash.com/photo-1756485161657-e005fc9e4393?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxhZnJpY2FuJTIwbW9kZWwlMjB3ZWFyaW5nJTIwdHJhZGl0aW9uYWwlMjBhZ2JhZGElMjBzZW5hdG9yJTIwZmFzaGlvbiUyMHBvcnRyYWl0fGVufDF8fHx8MTc1OTYwNDk2NXww&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral"
+                    alt="Traditional Nigerian Fashion"
+                    className="w-full h-[400px] md:h-[500px] lg:h-[600px] object-cover rounded-2xl shadow-xl"
+                  />
+                </div>
               </div>
+
               {/* Floating accent elements */}
-              <div className="absolute -top-8 -right-8 w-32 h-32 bg-gradient-to-br from-primary/20 to-secondary/20 rounded-full blur-xl"></div>
-              <div className="absolute -bottom-8 -left-8 w-24 h-24 bg-gradient-to-tr from-secondary/20 to-primary/20 rounded-full blur-lg"></div>
-            </div>
+              <div className="absolute -top-4 -right-4 md:-top-8 md:-right-8 w-20 h-20 md:w-32 md:h-32 bg-gradient-to-br from-primary/20 to-secondary/20 rounded-full blur-xl"></div>
+              <div className="absolute -bottom-4 -left-4 md:-bottom-8 md:-left-8 w-16 h-16 md:w-24 md:h-24 bg-gradient-to-tr from-secondary/20 to-primary/20 rounded-full blur-lg"></div>
+            </motion.div>
           </div>
         </div>
 
@@ -539,59 +541,32 @@ export function HomePage({ onNavigate, onAddToCart, currentUser }: HomePageProps
       </section>
 
       {/* Social Links */}
-<section className="py-12 border-t border-primary/20">
-  <div className="container mx-auto px-4">
-    <div className="flex flex-col md:flex-row items-center justify-between gap-4">
-      <div className="flex items-center gap-4">
-
-        {/* Instagram Link (Already Correct) */}
-        <a 
-          href="https://www.instagram.com/chuvel_threads?utm_source=ig_web_button_share_sheet&igsh=ZzhjdHphN2x1eHdu" 
-          target="_blank" 
-          rel="noopener noreferrer"
-        >
-          <Button variant="ghost" size="icon" className="hover:bg-primary/10 hover:text-primary transition-colors">
-            <Instagram className="h-5 w-5" />
-          </Button>
-        </a>
-
-        {/* Twitter Link ⬅️ **REPLACE PLACEHOLDER URL** */}
-        <a 
-          href="https://x.com/CHUVEL_THREADS_HANDLE" // Example: "https://x.com/ChuvelThreads"
-          target="_blank" 
-          rel="noopener noreferrer"
-        >
-          <Button variant="ghost" size="icon" className="hover:bg-primary/10 hover:text-primary transition-colors">
-            <Twitter className="h-5 w-5" />
-          </Button>
-        </a>
-
-        {/* Facebook Link (Already Correct) */}
-        <a 
-          href="https://www.facebook.com/profile.php?id=61581968367375" 
-          target="_blank" 
-          rel="noopener noreferrer"
-        >
-          <Button variant="ghost" size="icon" className="hover:bg-primary/10 hover:text-primary transition-colors">
-            <Facebook className="h-5 w-5" />
-          </Button>
-        </a>
-        <a 
-          href="https://www.tiktok.com/@CHUVEL_THREADS_HANDLE" // Your actual TikTok URL here
-          target="_blank" 
-          rel="noopener noreferrer"
-        >
-          <Button variant="ghost" size="icon" className="hover:bg-primary/10 hover:text-primary transition-colors">
-            <Twitch className="h-5 w-5" />
-          </Button>
-        </a>
-      </div>
-      <p className="text-sm text-foreground/60">
-        © 2024 Chuvel Threads. All rights reserved.
-      </p>
-    </div>
-  </div>
-</section>
+      <section className="py-12 border-t border-primary/20">
+        <div className="container mx-auto px-4">
+          <div className="flex flex-col md:flex-row items-center justify-between gap-4">
+            <div className="flex items-center gap-4">
+              <Button variant="ghost" size="icon" className="hover:bg-primary/10 hover:text-primary transition-colors">
+                <Instagram className="h-5 w-5" />
+              </Button>
+              <Button variant="ghost" size="icon" className="hover:bg-primary/10 hover:text-primary transition-colors">
+                <Twitter className="h-5 w-5" />
+              </Button>
+              <Button variant="ghost" size="icon" className="hover:bg-primary/10 hover:text-primary transition-colors">
+                <Facebook className="h-5 w-5" />
+              </Button>
+              <Button variant="ghost" size="icon" className="hover:bg-primary/10 hover:text-primary transition-colors">
+                <Youtube className="h-5 w-5" />
+              </Button>
+              <Button variant="ghost" size="icon" className="hover:bg-primary/10 hover:text-primary transition-colors">
+                <MessageCircle className="h-5 w-5" />
+              </Button>
+            </div>
+            <p className="text-sm text-foreground/60">
+              © 2024 Chuvel Threads. All rights reserved.
+            </p>
+          </div>
+        </div>
+      </section>
 
       {/* WhatsApp Floating Button */}
       <div className="fixed bottom-6 right-6 z-50">
