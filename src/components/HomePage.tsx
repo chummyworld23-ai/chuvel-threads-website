@@ -5,6 +5,7 @@ import { Card, CardContent } from './ui/card'
 import { Badge } from './ui/badge'
 import { ImageWithFallback } from './figma/ImageWithFallback'
 import heroImage from '../assets/chuvel-hero.jpg';
+import { TiktokIcon } from './TiktokIcon';
 
 interface HomePageProps {
   onNavigate: (page: string) => void
@@ -561,11 +562,11 @@ export function HomePage({ onNavigate, onAddToCart, currentUser }: HomePageProps
           </Button>
         </a>
         
-        {/* TikTok (using Music icon as a placeholder) */}
-        <a href="https://www.tiktok.com/@chuvel_threads" target="_blank" rel="noopener noreferrer">
-          <Button variant="ghost" size="icon" className="transition-colors hover:bg-primary/10 hover:text-primary">
-            <Music className="h-5 w-5" />
-          </Button>
+        {/* TikTok */}
+        <a href="https://www.tiktok.com/@your-tiktok-handle" target="_blank" rel="noopener noreferrer">
+        <Button variant="ghost" size="icon" className="transition-colors hover:bg-primary/10 hover:text-primary">
+        <TiktokIcon className="h-5 w-5" />
+        </Button>
         </a>
 
         {/* YouTube */}
