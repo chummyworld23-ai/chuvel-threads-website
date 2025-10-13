@@ -9,12 +9,14 @@ import {
   Image as ImageIcon,
   Package,
   Users,
+  User,
   ShoppingCart,
   TrendingUp,
   Star,
   Check,
   Clock,
-  Eye
+  Eye,
+  Search
 } from 'lucide-react'
 import { Button } from './ui/button'
 import { Input } from './ui/input'
@@ -25,10 +27,9 @@ import { Separator } from './ui/separator'
 import { Badge } from './ui/badge'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from './ui/select'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from './ui/tabs'
-import { toast } from "sonner"
+import { toast } from "sonner@2.0.3"
 import { ImageWithFallback } from './figma/ImageWithFallback'
-import { cn } from "@/lib/utils";
-
+import { userService } from '../lib/supabaseService'
 
 interface AdminPanelProps {
   onClose: () => void
@@ -36,6 +37,10 @@ interface AdminPanelProps {
 
 export function AdminPanel({ onClose }: AdminPanelProps) {
   const [activeTab, setActiveTab] = useState('products')
+  const [customers, setCustomers] = useState<any[]>([])
+  const [filteredCustomers, setFilteredCustomers] = useState<any[]>([])
+  const [customerSearchQuery, setCustomerSearchQuery] = useState('')
+  const [isLoadingCustomers, setIsLoadingCustomers] = useState(false)
   const [products, setProducts] = useState([
     {
       id: 1,
@@ -76,7 +81,7 @@ export function AdminPanel({ onClose }: AdminPanelProps) {
 
   const [contentSections, setContentSections] = useState({
     hero: {
-      title: 'Premium Male and Unisex Fashion',
+      title: 'TRADITION MEETS INNOVATION',
       subtitle: 'Experience the perfect fusion of Nigerian heritage and contemporary design',
       image: 'https://images.unsplash.com/photo-1756485161657-e005fc9e4393',
       buttonText: 'Explore Collection'
@@ -147,6 +152,63 @@ export function AdminPanel({ onClose }: AdminPanelProps) {
     }
   ])
 
+  // Load customers when customers tab is active
+  useEffect(() => {
+    if (activeTab === 'customers') {
+      loadCustomers()
+    }
+  }, [activeTab])
+
+  // Filter customers based on search query
+  useEffect(() => {
+    if (customerSearchQuery.trim() === '') {
+      setFilteredCustomers(customers)
+    } else {
+      const query = customerSearchQuery.toLowerCase()
+      const filtered = customers.filter(customer => 
+        customer.full_name.toLowerCase().includes(query) ||
+        customer.email.toLowerCase().includes(query) ||
+        customer.phone.toLowerCase().includes(query) ||
+        customer.date_of_birth.includes(query)
+      )
+      setFilteredCustomers(filtered)
+    }
+  }, [customerSearchQuery, customers])
+
+  const loadCustomers = async () => {
+    setIsLoadingCustomers(true)
+    try {
+      const users = await userService.getAllUsers()
+      // Sort by date of birth (ascending - oldest first)
+      const sortedUsers = users.sort((a, b) => {
+        return new Date(a.date_of_birth).getTime() - new Date(b.date_of_birth).getTime()
+      })
+      setCustomers(sortedUsers)
+      setFilteredCustomers(sortedUsers)
+    } catch (error: any) {
+      console.error('Error loading customers:', error)
+      toast.error('Failed to load customers')
+    } finally {
+      setIsLoadingCustomers(false)
+    }
+  }
+
+  const formatDate = (dateString: string) => {
+    const date = new Date(dateString)
+    return date.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })
+  }
+
+  const calculateAge = (dateOfBirth: string) => {
+    const today = new Date()
+    const birthDate = new Date(dateOfBirth)
+    let age = today.getFullYear() - birthDate.getFullYear()
+    const monthDiff = today.getMonth() - birthDate.getMonth()
+    if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < birthDate.getDate())) {
+      age--
+    }
+    return age
+  }
+
   const handleSaveProduct = () => {
     if (editingProduct) {
       // Update existing product
@@ -214,7 +276,7 @@ export function AdminPanel({ onClose }: AdminPanelProps) {
   const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0]
     if (file) {
-      // In a real app, you'd upload to Firebase Storage
+      // In a real app, you'd upload to Supabase Storage
       const mockUrl = URL.createObjectURL(file)
       setFormData({ ...formData, image: mockUrl })
       toast.success('Image uploaded successfully!')
@@ -768,14 +830,123 @@ export function AdminPanel({ onClose }: AdminPanelProps) {
               </div>
             )}
 
-            {/* Placeholder for other tabs */}
-            {(activeTab === 'orders' || activeTab === 'customers') && (
+            {/* Customers Management */}
+            {activeTab === 'customers' && (
               <div className="p-6">
-                <h3 className="text-2xl mb-6">{activeTab.charAt(0).toUpperCase() + activeTab.slice(1)} Management</h3>
+                <div className="flex items-center justify-between mb-6">
+                  <h3 className="text-2xl">Customers Management</h3>
+                  <div className="flex items-center gap-2 text-sm text-foreground/60">
+                    <Users className="h-4 w-4" />
+                    <span>{filteredCustomers.length} customer{filteredCustomers.length !== 1 ? 's' : ''}</span>
+                  </div>
+                </div>
+
+                {/* Search Bar */}
+                <Card className="mb-6 border-primary/20">
+                  <CardContent className="p-4">
+                    <div className="relative">
+                      <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-foreground/60" />
+                      <Input
+                        placeholder="Search by name, email, phone, or date of birth..."
+                        value={customerSearchQuery}
+                        onChange={(e) => setCustomerSearchQuery(e.target.value)}
+                        className="pl-10 bg-background border-primary/20"
+                      />
+                    </div>
+                    {customerSearchQuery && (
+                      <div className="mt-2 text-sm text-foreground/60">
+                        Found {filteredCustomers.length} result{filteredCustomers.length !== 1 ? 's' : ''}
+                      </div>
+                    )}
+                  </CardContent>
+                </Card>
+
+                {/* Customers List */}
+                {isLoadingCustomers ? (
+                  <Card className="border-primary/20">
+                    <CardContent className="p-8 text-center">
+                      <div className="animate-spin w-8 h-8 border-2 border-primary border-t-transparent rounded-full mx-auto mb-4"></div>
+                      <p className="text-foreground/60">Loading customers...</p>
+                    </CardContent>
+                  </Card>
+                ) : filteredCustomers.length === 0 ? (
+                  <Card className="border-primary/20">
+                    <CardContent className="p-8 text-center">
+                      <Users className="h-12 w-12 text-foreground/30 mx-auto mb-4" />
+                      <p className="text-foreground/60">
+                        {customerSearchQuery ? 'No customers found matching your search.' : 'No customers yet.'}
+                      </p>
+                    </CardContent>
+                  </Card>
+                ) : (
+                  <div className="space-y-3">
+                    {filteredCustomers.map((customer) => (
+                      <Card key={customer.id} className="border-primary/20 hover:border-primary/40 transition-colors">
+                        <CardContent className="p-5">
+                          <div className="flex items-start justify-between">
+                            <div className="flex-1 grid grid-cols-1 md:grid-cols-4 gap-4">
+                              {/* Name */}
+                              <div>
+                                <div className="flex items-center gap-2 mb-1">
+                                  <User className="h-4 w-4 text-primary" />
+                                  <span className="text-xs text-foreground/60">Name</span>
+                                </div>
+                                <p className="text-foreground">{customer.full_name}</p>
+                              </div>
+
+                              {/* Email */}
+                              <div>
+                                <div className="flex items-center gap-2 mb-1">
+                                  <span className="text-xs text-foreground/60">Email</span>
+                                </div>
+                                <p className="text-sm text-foreground/80 break-all">{customer.email}</p>
+                              </div>
+
+                              {/* Phone */}
+                              <div>
+                                <div className="flex items-center gap-2 mb-1">
+                                  <span className="text-xs text-foreground/60">Phone</span>
+                                </div>
+                                <p className="text-sm text-foreground/80">{customer.phone || 'N/A'}</p>
+                              </div>
+
+                              {/* Date of Birth & Age */}
+                              <div>
+                                <div className="flex items-center gap-2 mb-1">
+                                  <span className="text-xs text-foreground/60">Date of Birth</span>
+                                </div>
+                                <p className="text-sm text-foreground/80">{formatDate(customer.date_of_birth)}</p>
+                                <p className="text-xs text-foreground/60 mt-1">Age: {calculateAge(customer.date_of_birth)} years</p>
+                              </div>
+                            </div>
+
+                            {/* Additional Info Badge */}
+                            <Badge className="bg-primary/10 text-primary ml-4">
+                              Customer
+                            </Badge>
+                          </div>
+
+                          {/* Joined Date */}
+                          <div className="mt-3 pt-3 border-t border-primary/10 flex items-center justify-between text-xs text-foreground/50">
+                            <span>Joined: {formatDate(customer.created_at)}</span>
+                            <span>ID: {customer.id.substring(0, 8)}...</span>
+                          </div>
+                        </CardContent>
+                      </Card>
+                    ))}
+                  </div>
+                )}
+              </div>
+            )}
+
+            {/* Orders Management - Placeholder */}
+            {activeTab === 'orders' && (
+              <div className="p-6">
+                <h3 className="text-2xl mb-6">Orders Management</h3>
                 <Card className="border-primary/20">
                   <CardContent className="p-8 text-center">
                     <p className="text-foreground/60">
-                      {activeTab === 'orders' ? 'Orders' : 'Customer'} management coming soon...
+                      Orders management coming soon...
                     </p>
                   </CardContent>
                 </Card>
