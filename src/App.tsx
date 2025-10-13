@@ -8,8 +8,8 @@ import { CartPage } from "./components/CartPage";
 import { AuthModals } from "./components/AuthModals";
 import { AdminPanel } from "./components/AdminPanel";
 import { ChatIntegrations } from "./components/ChatIntegrations";
-import { authService } from "./lib/supabaseService";
 import { toast } from "sonner";
+import { supabase } from './lib/supabase';
 
 export default function App() {
   const [currentPage, setCurrentPage] = useState("home");
@@ -19,35 +19,26 @@ export default function App() {
   const [isAdminOpen, setIsAdminOpen] = useState(false);
   const [currentUser, setCurrentUser] = useState<any>(null);
 
-  // ✅ FIXED useEffect HOOK (Solves the session persistence and 'subscription' TypeError)
   useEffect(() => {
-    // Capture the entire result object, which should contain { data: { subscription } }
-    const listenerResult = authService.onAuthStateChange((event, session) => {
-      
-      // Session Handling Logic
-      if (session) {
-        setCurrentUser(session.user);
-        setIsLoginOpen(false);
-        setIsSignupOpen(false);
-        
-        // CRITICAL: Clear URL fragments after OAuth login to prevent session loss on refresh
-        if (window.location.hash.includes('access_token')) {
-          window.history.replaceState(null, '', window.location.pathname);
-        }
-      } else {
-        // User signed out or no session found
-        setCurrentUser(null);
-      }
-    });
+  // Check for session using the imported supabase client
+  supabase.auth.getSession().then(({ data: { session } }) => {
+    setCurrentUser(session?.user ?? null);
+  });
 
-    // The cleanup function
-    return () => {
-      // Safely access the subscription property before calling unsubscribe
-      if (listenerResult?.data?.subscription) {
-        listenerResult.data.subscription.unsubscribe();
-      }
-    };
-  }, []);
+  // Set up the listener using the imported supabase client
+  const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
+    setCurrentUser(session?.user ?? null);
+    if (session) {
+      setIsLoginOpen(false);
+      setIsSignupOpen(false);
+    }
+  });
+
+  // Cleanup
+  return () => {
+    subscription?.unsubscribe();
+  };
+}, []);
 
   const handleNavigate = (page: string) => {
     if (page === "login") {
