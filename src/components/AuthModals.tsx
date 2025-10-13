@@ -1,5 +1,5 @@
-import { useState } from 'react'
-import { X, Mail, Lock, User, Eye, EyeOff, CreditCard, Smartphone } from 'lucide-react'
+import { useState, useEffect } from 'react'
+import { X, Mail, Lock, User, Eye, EyeOff, CreditCard, Smartphone, Calendar, ChevronDown } from 'lucide-react'
 import { authService } from '../lib/supabaseService'
 import { Button } from './ui/button'
 import { Input } from './ui/input'
@@ -7,7 +7,8 @@ import { Label } from './ui/label'
 import { Card, CardContent, CardHeader, CardTitle } from './ui/card'
 import { Separator } from './ui/separator'
 import { Checkbox } from './ui/checkbox'
-import { toast } from "sonner"
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from './ui/select'
+import { toast } from "sonner@2.0.3"
 
 interface AuthModalsProps {
   isLoginOpen: boolean
@@ -17,6 +18,62 @@ interface AuthModalsProps {
   onSwitchToSignup: () => void
   onSwitchToLogin: () => void
   onLoginSuccess: (user: any) => void
+}
+
+// Country codes for phone input
+const countryCodes = [
+  { code: '+234', country: 'Nigeria', flag: '🇳🇬' },
+  { code: '+1', country: 'USA/Canada', flag: '🇺🇸' },
+  { code: '+44', country: 'UK', flag: '🇬🇧' },
+  { code: '+91', country: 'India', flag: '🇮🇳' },
+  { code: '+86', country: 'China', flag: '🇨🇳' },
+  { code: '+81', country: 'Japan', flag: '🇯🇵' },
+  { code: '+49', country: 'Germany', flag: '🇩🇪' },
+  { code: '+33', country: 'France', flag: '🇫🇷' },
+  { code: '+27', country: 'South Africa', flag: '🇿🇦' },
+  { code: '+254', country: 'Kenya', flag: '🇰🇪' },
+  { code: '+233', country: 'Ghana', flag: '🇬🇭' },
+  { code: '+20', country: 'Egypt', flag: '🇪🇬' },
+  { code: '+971', country: 'UAE', flag: '🇦🇪' },
+  { code: '+966', country: 'Saudi Arabia', flag: '🇸🇦' },
+  { code: '+55', country: 'Brazil', flag: '🇧🇷' },
+  { code: '+52', country: 'Mexico', flag: '🇲🇽' },
+  { code: '+61', country: 'Australia', flag: '🇦🇺' },
+  { code: '+65', country: 'Singapore', flag: '🇸🇬' },
+]
+
+// Generate years (100 years back from current year)
+const generateYears = () => {
+  const currentYear = new Date().getFullYear()
+  const years = []
+  for (let i = currentYear; i >= currentYear - 100; i--) {
+    years.push(i)
+  }
+  return years
+}
+
+const months = [
+  { value: '01', label: 'January' },
+  { value: '02', label: 'February' },
+  { value: '03', label: 'March' },
+  { value: '04', label: 'April' },
+  { value: '05', label: 'May' },
+  { value: '06', label: 'June' },
+  { value: '07', label: 'July' },
+  { value: '08', label: 'August' },
+  { value: '09', label: 'September' },
+  { value: '10', label: 'October' },
+  { value: '11', label: 'November' },
+  { value: '12', label: 'December' },
+]
+
+// Generate days (1-31)
+const generateDays = () => {
+  const days = []
+  for (let i = 1; i <= 31; i++) {
+    days.push(i.toString().padStart(2, '0'))
+  }
+  return days
 }
 
 export function AuthModals({ 
@@ -35,12 +92,18 @@ export function AuthModals({
     lastName: '', 
     email: '', 
     password: '', 
+    countryCode: '+234',
     phone: '',
+    dobDay: '',
+    dobMonth: '',
+    dobYear: '',
     agreeToTerms: false
   })
   const [showPaymentModal, setShowPaymentModal] = useState(false)
   const [selectedPaymentMethod, setSelectedPaymentMethod] = useState('')
   const [isLoading, setIsLoading] = useState(false)
+  const [showProfileCompletion, setShowProfileCompletion] = useState(false)
+  const [profileCompletionData, setProfileCompletionData] = useState<any>(null)
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault()
@@ -48,11 +111,11 @@ export function AuthModals({
 
     try {
       const result = await authService.signIn(loginForm.email, loginForm.password)
-      // supabase returns a data object; assume success if no error thrown
       toast.success('Login successful! Welcome back.')
-      onLoginSuccess(result.user ?? null)
-    } catch (error) {
-      toast.error((error as any)?.message || 'Login failed. Please try again.')
+      onLoginSuccess(result.user)
+      onCloseLogin()
+    } catch (error: any) {
+      toast.error(error.message || 'Login failed. Please try again.')
     } finally {
       setIsLoading(false)
     }
@@ -62,10 +125,70 @@ export function AuthModals({
     setIsLoading(true)
     
     try {
-  await authService.signInWithGoogle()
-  toast.success('Login initiated. Complete the sign-in in the provider window.')
-    } catch (error) {
-      toast.error((error as any)?.message || 'Google login failed. Please try again.')
+      await authService.signInWithGoogle()
+      toast.success('Redirecting to Google...')
+      // Google auth will redirect, so we don't need to handle the result here
+    } catch (error: any) {
+      toast.error(error.message || 'Google login failed. Please try again.')
+      setIsLoading(false)
+    }
+  }
+
+  // Check if user signed in with Google and needs to complete profile
+  useEffect(() => {
+    const checkGoogleSignup = async () => {
+      try {
+        const user = await authService.getCurrentUser()
+        if (user && user.app_metadata?.provider === 'google') {
+          const profile = await authService.getUserProfile(user.id)
+          // Check if phone and date_of_birth are missing
+          if (!profile.phone || !profile.date_of_birth) {
+            setProfileCompletionData(user)
+            setShowProfileCompletion(true)
+            onCloseLogin()
+            onCloseSignup()
+          }
+        }
+      } catch (error) {
+        // User not logged in or error fetching profile
+      }
+    }
+    
+    if (isLoginOpen || isSignupOpen) {
+      checkGoogleSignup()
+    }
+  }, [isLoginOpen, isSignupOpen])
+
+  const handleCompleteProfile = async (e: React.FormEvent) => {
+    e.preventDefault()
+    
+    if (!signupForm.dobDay || !signupForm.dobMonth || !signupForm.dobYear) {
+      toast.error('Please select your date of birth')
+      return
+    }
+
+    if (!signupForm.phone) {
+      toast.error('Please enter your phone number')
+      return
+    }
+
+    setIsLoading(true)
+
+    try {
+      const dateOfBirth = `${signupForm.dobYear}-${signupForm.dobMonth}-${signupForm.dobDay}`
+      const fullPhone = `${signupForm.countryCode} ${signupForm.phone}`
+      
+      await authService.updateUserProfile(profileCompletionData.id, {
+        phone: fullPhone,
+        date_of_birth: dateOfBirth
+      })
+
+      toast.success('Profile completed successfully!')
+      setShowProfileCompletion(false)
+      const updatedUser = await authService.getCurrentUser()
+      onLoginSuccess(updatedUser)
+    } catch (error: any) {
+      toast.error(error.message || 'Failed to complete profile')
     } finally {
       setIsLoading(false)
     }
@@ -77,20 +200,35 @@ export function AuthModals({
       toast.error('Please agree to the terms and conditions')
       return
     }
+
+    if (!signupForm.dobDay || !signupForm.dobMonth || !signupForm.dobYear) {
+      toast.error('Please select your date of birth')
+      return
+    }
+
+    if (!signupForm.phone) {
+      toast.error('Please enter your phone number')
+      return
+    }
     
     setIsLoading(true)
 
     try {
+      const fullName = `${signupForm.firstName} ${signupForm.lastName}`
+      const dateOfBirth = `${signupForm.dobYear}-${signupForm.dobMonth}-${signupForm.dobDay}`
+      const fullPhone = `${signupForm.countryCode} ${signupForm.phone}`
+      
       const result = await authService.signUp(
-        signupForm.email,
-        signupForm.password,
-        `${signupForm.firstName} ${signupForm.lastName}`,
-        ''
+        signupForm.email, 
+        signupForm.password, 
+        fullName,
+        dateOfBirth,
+        fullPhone
       )
-      toast.success('Account created successfully!')
-      onLoginSuccess(result.user ?? null)
-    } catch (error) {
-      toast.error((error as any)?.message || 'Signup failed. Please try again.')
+      toast.success('Account created successfully! Please check your email to verify your account.')
+      onCloseSignup()
+    } catch (error: any) {
+      toast.error(error.message || 'Signup failed. Please try again.')
     } finally {
       setIsLoading(false)
     }
@@ -405,17 +543,82 @@ export function AuthModals({
 
                 <div className="space-y-2">
                   <Label htmlFor="phone">Phone Number</Label>
-                  <div className="relative">
-                    <Smartphone className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-foreground/60" />
-                    <Input
-                      id="phone"
-                      type="tel"
-                      placeholder="+234 xxx xxx xxxx"
-                      className="pl-10 bg-background border-primary/20"
-                      value={signupForm.phone}
-                      onChange={(e) => setSignupForm({...signupForm, phone: e.target.value})}
-                      required
-                    />
+                  <div className="flex gap-2">
+                    <Select value={signupForm.countryCode} onValueChange={(value) => setSignupForm({...signupForm, countryCode: value})}>
+                      <SelectTrigger className="w-[140px] bg-background border-primary/20">
+                        <SelectValue />
+                      </SelectTrigger>
+                      <SelectContent className="max-h-[300px]">
+                        {countryCodes.map((country) => (
+                          <SelectItem key={country.code} value={country.code}>
+                            <span className="flex items-center gap-2">
+                              <span>{country.flag}</span>
+                              <span>{country.code}</span>
+                            </span>
+                          </SelectItem>
+                        ))}
+                      </SelectContent>
+                    </Select>
+                    <div className="relative flex-1">
+                      <Smartphone className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-foreground/60" />
+                      <Input
+                        id="phone"
+                        type="tel"
+                        placeholder="801 234 5678"
+                        className="pl-10 bg-background border-primary/20"
+                        value={signupForm.phone}
+                        onChange={(e) => setSignupForm({...signupForm, phone: e.target.value.replace(/[^0-9]/g, '')})}
+                        required
+                      />
+                    </div>
+                  </div>
+                </div>
+
+                <div className="space-y-2">
+                  <Label>Date of Birth</Label>
+                  <div className="grid grid-cols-3 gap-2">
+                    <div>
+                      <Select value={signupForm.dobMonth} onValueChange={(value) => setSignupForm({...signupForm, dobMonth: value})}>
+                        <SelectTrigger className="bg-background border-primary/20">
+                          <SelectValue placeholder="Month" />
+                        </SelectTrigger>
+                        <SelectContent className="max-h-[300px]">
+                          {months.map((month) => (
+                            <SelectItem key={month.value} value={month.value}>
+                              {month.label}
+                            </SelectItem>
+                          ))}
+                        </SelectContent>
+                      </Select>
+                    </div>
+                    <div>
+                      <Select value={signupForm.dobDay} onValueChange={(value) => setSignupForm({...signupForm, dobDay: value})}>
+                        <SelectTrigger className="bg-background border-primary/20">
+                          <SelectValue placeholder="Day" />
+                        </SelectTrigger>
+                        <SelectContent className="max-h-[300px]">
+                          {generateDays().map((day) => (
+                            <SelectItem key={day} value={day}>
+                              {day}
+                            </SelectItem>
+                          ))}
+                        </SelectContent>
+                      </Select>
+                    </div>
+                    <div>
+                      <Select value={signupForm.dobYear} onValueChange={(value) => setSignupForm({...signupForm, dobYear: value})}>
+                        <SelectTrigger className="bg-background border-primary/20">
+                          <SelectValue placeholder="Year" />
+                        </SelectTrigger>
+                        <SelectContent className="max-h-[300px]">
+                          {generateYears().map((year) => (
+                            <SelectItem key={year} value={year.toString()}>
+                              {year}
+                            </SelectItem>
+                          ))}
+                        </SelectContent>
+                      </Select>
+                    </div>
                   </div>
                 </div>
 
@@ -498,6 +701,122 @@ export function AuthModals({
                     </Button>
                   </p>
                 </div>
+              </form>
+            </CardContent>
+          </Card>
+        </div>
+      )}
+
+      {/* Profile Completion Modal for Google OAuth users */}
+      {showProfileCompletion && (
+        <div className="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center z-50 p-4">
+          <Card className="w-full max-w-md bg-card border-primary/20">
+            <CardHeader className="text-center">
+              <CardTitle className="flex items-center justify-between">
+                Complete Your Profile
+                <Button
+                  variant="ghost"
+                  size="icon"
+                  onClick={() => setShowProfileCompletion(false)}
+                  className="hover:bg-primary/10"
+                >
+                  <X className="h-4 w-4" />
+                </Button>
+              </CardTitle>
+              <p className="text-sm text-foreground/70">
+                Please provide additional information to complete your account setup
+              </p>
+            </CardHeader>
+            <CardContent>
+              <form onSubmit={handleCompleteProfile} className="space-y-4">
+                <div className="space-y-2">
+                  <Label htmlFor="profile-phone">Phone Number</Label>
+                  <div className="flex gap-2">
+                    <Select value={signupForm.countryCode} onValueChange={(value) => setSignupForm({...signupForm, countryCode: value})}>
+                      <SelectTrigger className="w-[140px] bg-background border-primary/20">
+                        <SelectValue />
+                      </SelectTrigger>
+                      <SelectContent className="max-h-[300px]">
+                        {countryCodes.map((country) => (
+                          <SelectItem key={country.code} value={country.code}>
+                            <span className="flex items-center gap-2">
+                              <span>{country.flag}</span>
+                              <span>{country.code}</span>
+                            </span>
+                          </SelectItem>
+                        ))}
+                      </SelectContent>
+                    </Select>
+                    <div className="relative flex-1">
+                      <Smartphone className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-foreground/60" />
+                      <Input
+                        id="profile-phone"
+                        type="tel"
+                        placeholder="801 234 5678"
+                        className="pl-10 bg-background border-primary/20"
+                        value={signupForm.phone}
+                        onChange={(e) => setSignupForm({...signupForm, phone: e.target.value.replace(/[^0-9]/g, '')})}
+                        required
+                      />
+                    </div>
+                  </div>
+                </div>
+
+                <div className="space-y-2">
+                  <Label>Date of Birth</Label>
+                  <div className="grid grid-cols-3 gap-2">
+                    <div>
+                      <Select value={signupForm.dobMonth} onValueChange={(value) => setSignupForm({...signupForm, dobMonth: value})}>
+                        <SelectTrigger className="bg-background border-primary/20">
+                          <SelectValue placeholder="Month" />
+                        </SelectTrigger>
+                        <SelectContent className="max-h-[300px]">
+                          {months.map((month) => (
+                            <SelectItem key={month.value} value={month.value}>
+                              {month.label}
+                            </SelectItem>
+                          ))}
+                        </SelectContent>
+                      </Select>
+                    </div>
+                    <div>
+                      <Select value={signupForm.dobDay} onValueChange={(value) => setSignupForm({...signupForm, dobDay: value})}>
+                        <SelectTrigger className="bg-background border-primary/20">
+                          <SelectValue placeholder="Day" />
+                        </SelectTrigger>
+                        <SelectContent className="max-h-[300px]">
+                          {generateDays().map((day) => (
+                            <SelectItem key={day} value={day}>
+                              {day}
+                            </SelectItem>
+                          ))}
+                        </SelectContent>
+                      </Select>
+                    </div>
+                    <div>
+                      <Select value={signupForm.dobYear} onValueChange={(value) => setSignupForm({...signupForm, dobYear: value})}>
+                        <SelectTrigger className="bg-background border-primary/20">
+                          <SelectValue placeholder="Year" />
+                        </SelectTrigger>
+                        <SelectContent className="max-h-[300px]">
+                          {generateYears().map((year) => (
+                            <SelectItem key={year} value={year.toString()}>
+                              {year}
+                            </SelectItem>
+                          ))}
+                        </SelectContent>
+                      </Select>
+                    </div>
+                  </div>
+                </div>
+
+                <Button 
+                  type="submit" 
+                  className="w-full bg-primary text-primary-foreground hover:bg-primary/90"
+                  disabled={isLoading}
+                >
+                  {isLoading ? 'Completing Profile...' : 'Complete Profile'}
+                </Button>
               </form>
             </CardContent>
           </Card>
