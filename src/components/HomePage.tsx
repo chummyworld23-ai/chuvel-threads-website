@@ -1,9 +1,10 @@
-import { ArrowRight, Star, Instagram, MessageCircle, Twitter, Facebook, Youtube, MessageSquare } from 'lucide-react'
-import { motion } from 'motion/react'
+import { ArrowRight, Star, Instagram, MessageCircle, Twitter, Facebook, Twitch, MessageSquare, } from 'lucide-react'
+import { motion } from 'framer-motion'
 import { Button } from './ui/button'
 import { Card, CardContent } from './ui/card'
 import { Badge } from './ui/badge'
 import { ImageWithFallback } from './figma/ImageWithFallback'
+
 
 interface HomePageProps {
   onNavigate: (page: string) => void
