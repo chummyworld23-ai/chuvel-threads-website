@@ -388,3 +388,38 @@ export const analyticsService = {
     }
   }
 }
+// User Management (for Admin)
+export const userService = {
+  async getAllUsers() {
+    const { data, error } = await supabase
+      .from('users')
+      .select('*')
+      .order('created_at', { ascending: false });
+
+    if (error) throw error;
+    return data as User[];
+  },
+
+  async updateUserRole(userId: string, role: User['role']) {
+    const { data, error } = await supabase
+      .from('users')
+      .update({ role })
+      .eq('id', userId)
+      .select()
+      .single();
+
+    if (error) throw error;
+    return data;
+  },
+
+  async deleteUser(userId: string) {
+    // Note: This only deletes from your public 'users' table.
+    // Deleting from auth.users requires admin privileges on the backend.
+    const { error } = await supabase
+      .from('users')
+      .delete()
+      .eq('id', userId);
+
+    if (error) throw error;
+  }
+};
