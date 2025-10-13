@@ -8,7 +8,7 @@ import { Card, CardContent, CardHeader, CardTitle } from './ui/card'
 import { Separator } from './ui/separator'
 import { Checkbox } from './ui/checkbox'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from './ui/select'
-import { toast } from "sonner@2.0.3"
+import { toast } from "sonner"
 
 interface AuthModalsProps {
   isLoginOpen: boolean
