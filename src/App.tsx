@@ -19,38 +19,34 @@ export default function App() {
   const [isAdminOpen, setIsAdminOpen] = useState(false);
   const [currentUser, setCurrentUser] = useState<any>(null);
 
-  // Assuming authService.onAuthStateChange maps directly to:
-// supabase.auth.onAuthStateChange((event, session) => { ... })
-
-useEffect(() => {
-  const {
-    data: { subscription }, // Use the subscription data returned by the Supabase listener
-  } = authService.onAuthStateChange((event, session) => {
-    
-    // 1. Initial Load & OAuth Callback Handling
-    if (session) {
-      setCurrentUser(session.user);
-      setIsLoginOpen(false);
-      setIsSignupOpen(false);
+  useEffect(() => {
+    // Capture the entire result object, which should contain { data: { subscription } }
+    const listenerResult = authService.onAuthStateChange((event, session) => {
       
-      // 2. Critical: Clear the URL fragment after the session is set
-      // This is what prevents the refresh from losing the session.
-      if (window.location.hash.includes('access_token')) {
-        window.history.replaceState(null, '', window.location.pathname);
+      // Session Handling Logic
+      if (session) {
+        setCurrentUser(session.user);
+        setIsLoginOpen(false);
+        setIsSignupOpen(false);
+        
+        // CRITICAL: Clear URL fragments after OAuth login to prevent session loss on refresh
+        if (window.location.hash.includes('access_token')) {
+          window.history.replaceState(null, '', window.location.pathname);
+        }
+      } else {
+        // User signed out or no session found
+        setCurrentUser(null);
       }
-    } else {
-      // User signed out or no session found
-      setCurrentUser(null);
-    }
-  });
+    });
 
-  // The cleanup function should unsubscribe the listener
-  return () => {
-    if (subscription) {
-      subscription.unsubscribe();
-    }
-  };
-}, []);
+    // The cleanup function
+    return () => {
+      // Safely access the subscription property before calling unsubscribe
+      if (listenerResult?.data?.subscription) {
+        listenerResult.data.subscription.unsubscribe();
+      }
+    };
+  }, []);
 
   const handleNavigate = (page: string) => {
     if (page === "login") {
@@ -67,6 +63,11 @@ useEffect(() => {
     }
     setCurrentPage(page);
   };
+  
+  // You need a JSX return statement for your component here.
+  // ...
+  
+}
 
   const handleAddToCart = (product: any) => {
     if (!currentUser) {
