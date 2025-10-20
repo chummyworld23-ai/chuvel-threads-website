@@ -320,7 +320,7 @@ export function ShopPage({ category, onNavigate, onAddToCart, currentUser }: Sho
                       <ImageWithFallback
                         src={product.image}
                         alt={product.name}
-                        className={`object-cover group-hover:scale-105 transition-transform duration-300 ${
+                        className={`object-contain group-hover:scale-105 transition-transform duration-300 ${
                           viewMode === 'list' ? 'w-48 h-48' : 'w-full h-[450px]'
                         }`}
                       />
