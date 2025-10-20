@@ -3,7 +3,7 @@ import './styles/index.css';
 import { useState, useEffect } from "react";
 import { Header } from "./components/Header";
 import { HomePage } from "./components/HomePage";
-import { ShopPage } from "./components/ShopPage";
+import ShopPage from "./components/ShopPage";
 import { CartPage } from "./components/CartPage";
 import { AuthModals } from "./components/AuthModals";
 import { AdminPanel } from "./components/AdminPanel";
