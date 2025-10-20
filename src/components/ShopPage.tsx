@@ -5,7 +5,7 @@ import Fuse from 'fuse.js';
 import { motion } from 'framer-motion';
 import { Button } from './ui/button'
 import { Input } from "./ui/input";
-import { Card, CardContent, CardFooter } from "../ui/card";
+import { Card, CardContent, CardFooter } from "./ui/card";
 
 // 🧵 Example product data (replace this with your real Supabase or JSON data)
 const sampleProducts = [
