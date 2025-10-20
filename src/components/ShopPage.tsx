@@ -321,7 +321,7 @@ export function ShopPage({ category, onNavigate, onAddToCart, currentUser }: Sho
                         src={product.image}
                         alt={product.name}
                         className={`object-cover group-hover:scale-105 transition-transform duration-300 ${
-                          viewMode === 'list' ? 'w-48 h-48' : 'w-full h-80'
+                          viewMode === 'list' ? 'w-48 h-48' : 'w-full h-[450px]'
                         }`}
                       />
                       {product.badge && (

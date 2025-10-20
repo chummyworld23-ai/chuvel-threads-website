@@ -221,7 +221,7 @@ export function HomePage({ onNavigate, onAddToCart, currentUser }: HomePageProps
                       onClick={() => onNavigate('senators')}
                       className="bg-primary text-primary-foreground hover:bg-primary/90 group shadow-lg"
                     >
-                      Explore Collection
+                      Explore Catalogue
                       <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
                     </Button>
                     <Button 
@@ -239,9 +239,9 @@ export function HomePage({ onNavigate, onAddToCart, currentUser }: HomePageProps
               {/* Stats with glassy effect */}
               <div className="grid grid-cols-3 gap-4">
                 {[
-                  { label: 'Happy Customers', value: '5000+' },
-                  { label: 'Premium Products', value: '200+' },
-                  { label: 'Years Experience', value: '4+' }
+                  { label: 'Happy Customers', value: '450+' },
+                  { label: 'Premium Products', value: '100+' },
+                  { label: 'Years Experience', value: '2+' }
                 ].map((stat, index) => (
                   <div key={index} className="backdrop-blur-lg bg-card/20 border border-primary/10 rounded-xl p-4 text-center">
                     <div className="text-lg text-primary">{stat.value}</div>
@@ -305,7 +305,7 @@ export function HomePage({ onNavigate, onAddToCart, currentUser }: HomePageProps
                 <span className="text-foreground">OUR</span>
                 <br />
                 <span className="bg-gradient-to-r from-secondary via-primary to-primary bg-clip-text text-transparent">
-                  COLLECTIONS
+                  CATALOGUE
                 </span>
               </h2>
               

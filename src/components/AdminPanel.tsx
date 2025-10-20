@@ -84,10 +84,10 @@ export function AdminPanel({ onClose }: AdminPanelProps) {
       title: 'TRADITION MEETS INNOVATION',
       subtitle: 'Experience the perfect fusion of Nigerian heritage and contemporary design',
       image: 'https://images.unsplash.com/photo-1756485161657-e005fc9e4393',
-      buttonText: 'Explore Collection'
+      buttonText: 'Explore Catalogue'
     },
     collections: {
-      title: 'EXPLORE OUR COLLECTIONS',
+      title: 'EXPLORE OUR CATALOGUE',
       subtitle: 'From traditional Nigerian wear to modern streetwear',
       categories: [
         { name: 'Senators', description: 'Premium traditional wear' },
