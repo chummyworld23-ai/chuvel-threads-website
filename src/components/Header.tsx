@@ -1,12 +1,12 @@
 // src/components/Header.tsx
 
 import { useState } from 'react';
-import { Menu, Search, ShoppingCart, X, } from 'lucide-react';
+import { Menu, ShoppingCart, X, Search } from 'lucide-react';
 import { Button } from './ui/button';
 import { Input } from './ui/input';
 import { toast } from 'sonner';
 import yourLogo from '../assets/Logo.png';
-import { supabase } from '../lib/supabase'; 
+import { supabase } from '../lib/supabase';
 
 interface HeaderProps {
   currentPage: string;
@@ -17,20 +17,17 @@ interface HeaderProps {
 
 export function Header({ currentPage, onNavigate, cartCount, currentUser }: HeaderProps) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [isSearchOpen, setIsSearchOpen] = useState(false);
 
-const handleLogout = async () => {
-  try {
-    // Call the signOut method from the main supabase client
-    const { error } = await supabase.auth.signOut();
-    if (error) throw error;
-    
-    toast.success('Logged out successfully');
-    // The onAuthStateChange listener in App.tsx will automatically handle the UI update
-  } catch (error) {
-    toast.error((error as any)?.message || 'Logout failed');
-  }
-};
+  const handleLogout = async () => {
+    try {
+      const { error } = await supabase.auth.signOut();
+      if (error) throw error;
+
+      toast.success('Logged out successfully');
+    } catch (error) {
+      toast.error((error as any)?.message || 'Logout failed');
+    }
+  };
 
   const navigation = [
     { name: 'Home', id: 'home' },
@@ -47,11 +44,20 @@ const handleLogout = async () => {
   return (
     <>
       <header className="sticky top-0 z-40 w-full border-b border-primary/20 bg-background/95 backdrop-blur-sm">
-        <div className="container mx-auto flex h-16 items-center justify-between px-4">
+        <div className="container mx-auto flex h-16 items-center justify-between gap-4 px-4">
           {/* Logo */}
           <button onClick={() => onNavigate('home')}>
             <img src={yourLogo} alt="Chuvel Threads Logo" className="h-12 w-auto md:h-16" />
           </button>
+
+          {/* 🔍 Always-visible Search Bar */}
+          <div className="relative hidden flex-1 md:flex max-w-md">
+            <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-foreground/60" />
+            <Input
+              placeholder="What are you looking for?"
+              className="border-primary/20 bg-card pl-10 focus:border-primary rounded-full"
+            />
+          </div>
 
           {/* Desktop Navigation */}
           <nav className="hidden items-center space-x-8 md:flex">
@@ -86,11 +92,12 @@ const handleLogout = async () => {
 
           {/* Actions */}
           <div className="flex items-center space-x-2 md:space-x-4">
-            <Button variant="ghost" size="icon" onClick={() => setIsSearchOpen(!isSearchOpen)}>
-              <Search className="h-5 w-5" />
-            </Button>
-
-            <Button variant="ghost" size="icon" onClick={() => onNavigate('cart')} className="relative">
+            <Button
+              variant="ghost"
+              size="icon"
+              onClick={() => onNavigate('cart')}
+              className="relative"
+            >
               <ShoppingCart className="h-5 w-5" />
               {cartCount > 0 && (
                 <span className="absolute -top-1 -right-1 flex h-5 w-5 items-center justify-center rounded-full bg-secondary text-xs text-white">
@@ -100,35 +107,36 @@ const handleLogout = async () => {
             </Button>
 
             {/* Mobile Menu Button */}
-            <Button variant="ghost" size="icon" onClick={() => setIsMenuOpen(true)} className="md:hidden">
+            <Button
+              variant="ghost"
+              size="icon"
+              onClick={() => setIsMenuOpen(true)}
+              className="md:hidden"
+            >
               <Menu className="h-5 w-5" />
             </Button>
           </div>
         </div>
 
-        {/* Search Bar */}
-        {isSearchOpen && (
-          <div className="border-t border-primary/20 py-4">
-            <div className="relative mx-auto max-w-md">
-              <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-foreground/60" />
-              <Input
-                placeholder="Search products..."
-                className="border-primary/20 bg-card pl-10 focus:border-primary"
-              />
-            </div>
+        {/* 🔍 Search on Mobile (below header) */}
+        <div className="border-t border-primary/20 py-2 px-4 flex md:hidden">
+          <div className="relative flex-1">
+            <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-foreground/60" />
+            <Input
+              placeholder="What are you looking for?"
+              className="border-primary/20 bg-card pl-10 focus:border-primary rounded-full"
+            />
           </div>
-        )}
+        </div>
       </header>
 
       {/* Mobile Drawer */}
       {isMenuOpen && (
         <div className="fixed inset-0 z-50 md:hidden">
-          {/* Overlay */}
           <div
             className="absolute inset-0 bg-black/60 backdrop-blur-sm"
             onClick={() => setIsMenuOpen(false)}
           ></div>
-          {/* Drawer Content */}
           <div className="absolute top-0 right-0 h-full w-4/5 max-w-sm bg-background p-6 shadow-xl">
             <div className="flex items-center justify-between">
               <h2 className="text-lg font-semibold">Menu</h2>
@@ -154,29 +162,40 @@ const handleLogout = async () => {
                 </button>
               ))}
               {isAdmin && (
-                 <button
-                   onClick={() => {
-                     onNavigate('admin');
-                     setIsMenuOpen(false);
-                   }}
-                   className={`rounded-lg px-4 py-2 text-left transition-colors ${
+                <button
+                  onClick={() => {
+                    onNavigate('admin');
+                    setIsMenuOpen(false);
+                  }}
+                  className={`rounded-lg px-4 py-2 text-left transition-colors ${
                     currentPage === 'admin'
                       ? 'bg-secondary/10 text-secondary'
                       : 'text-foreground/80 hover:bg-secondary/5 hover:text-secondary'
                   }`}
-                 >
-                   Admin Panel
-                 </button>
+                >
+                  Admin Panel
+                </button>
               )}
-               <div className="mt-6 border-t border-white/10 pt-6">
+              <div className="mt-6 border-t border-white/10 pt-6">
                 {currentUser ? (
-                 <Button onClick={handleLogout} className="w-full">Logout</Button>
+                  <Button onClick={handleLogout} className="w-full">
+                    Logout
+                  </Button>
                 ) : (
-                <div className="flex w-full gap-4">
-                  <Button onClick={() => onNavigate('login')} className="flex-1">Login</Button>
-                  <Button onClick={() => onNavigate('signup')} variant="outline" className="flex-1">Sign Up</Button></div>
-                 )}
-                 </div>
+                  <div className="flex w-full gap-4">
+                    <Button onClick={() => onNavigate('login')} className="flex-1">
+                      Login
+                    </Button>
+                    <Button
+                      onClick={() => onNavigate('signup')}
+                      variant="outline"
+                      className="flex-1"
+                    >
+                      Sign Up
+                    </Button>
+                  </div>
+                )}
+              </div>
             </nav>
           </div>
         </div>
