@@ -110,6 +110,18 @@ export default function App() {
   const cartCount = cartItems.reduce((sum, item) => sum + item.quantity, 0);
 
   const renderPage = () => {
+      if (currentPage.startsWith("search:")) {
+    const query = currentPage.split(":")[1];
+    return (
+      <ShopPage
+        category="all"
+        searchQuery={query}
+        onNavigate={handleNavigate}
+        onAddToCart={handleAddToCart}
+        currentUser={currentUser}
+      />
+    );
+  }
     switch (currentPage) {
       case "home":
         return (
