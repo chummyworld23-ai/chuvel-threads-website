@@ -16,7 +16,7 @@ import { toast } from "sonner"
 import { ProductsManagement } from './ProductsManagement' 
 // Keep the imports for data handling
 import { ImageWithFallback } from './figma/ImageWithFallback'
-import { userService } from '../lib/supabaseService' '../lib/supabaseService'
+import { userService } from '../lib/supabaseService' 
 
 interface AdminPanelProps {
   onClose: () => void
