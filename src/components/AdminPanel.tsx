@@ -38,7 +38,7 @@ export function AdminPanel({ onClose }: AdminPanelProps) {
       title: 'TRADITION MEETS INNOVATION',
       subtitle: 'Experience the perfect fusion of Nigerian heritage and contemporary design',
       image: 'https://images.unsplash.com/photo-1756485161657-e005fc9e4393',
-      buttonText: 'Explore Catalogue'
+      buttonText: 'Explore o'
     },
     collections: {
       title: 'EXPLORE OUR CATALOGUE',
