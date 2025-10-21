@@ -287,12 +287,11 @@ export function AdminPanel({ onClose }: AdminPanelProps) {
               </div>
             )}
             
-             {/* Customers Management */}
+           {/* Customers Management */}
             {activeTab === 'customers' && (
-                {/* ... (Your existing customers management code remains here) ... */}
                 <div className="p-6">
                     <h3 className="text-2xl mb-6">Customers</h3>
-                    {/* ... search bar and customer table ... */}
+                    {/* ... (Your existing customers management code remains here) ... */}
                 </div>
             )}
           </div>
