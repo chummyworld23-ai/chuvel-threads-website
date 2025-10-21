@@ -8,15 +8,18 @@ import { 
   TrendingUp,
 } from 'lucide-react'
 import { Button } from './ui/button'
-// We only need Card components, no other UI elements
 import { Card, CardHeader, CardTitle } from './ui/card' 
 import { Badge } from './ui/badge'
 import { toast } from "sonner"
-// Keep the import for the new component
+
+// --- Admin Panel Components ---
 import { ProductsManagement } from './ProductsManagement' 
-// Keep the imports for data handling
+// Add this if you haven't yet, but only once:
+// import { OrdersManagement } from './OrdersManagement' 
+
+// --- Utilities (Ensure these are NOT duplicated) ---
 import { ImageWithFallback } from './figma/ImageWithFallback'
-import { userService } from '../lib/supabaseService' 
+import { userService } from '../lib/supabaseService'
 
 interface AdminPanelProps {
   onClose: () => void
