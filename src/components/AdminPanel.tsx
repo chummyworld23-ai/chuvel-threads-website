@@ -4,6 +4,7 @@ import { 
   Image as ImageIcon,
   Package,
   Users,
+  Star,
   ShoppingCart,
   TrendingUp,
 } from 'lucide-react'

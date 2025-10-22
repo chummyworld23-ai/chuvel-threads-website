@@ -170,15 +170,14 @@ export default function App() {
                 <div>
                   <h2 className="text-2xl mb-4 text-primary">Our Story</h2>
                   <p className="text-foreground/80 mb-4">
-                    Founded in 2020, Chuvel Threads emerged from a passion to
-                    celebrate Nigerian fashion heritage while creating
-                    contemporary pieces for the modern African man and woman.
+                    Founded in 2025, Chuvel Threads emerged from a passion for crafting timeless senator wears & 
+                    urban styles for the modern African man and woman. We offer a range of contemporary pieces, from 
+                    luxury Agbadas to modern streetwear
                   </p>
                   <p className="text-foreground/80 mb-4">
-                    Our name "Chuvel" represents the fusion of tradition and
-                    innovation - taking the timeless elegance of garments like
-                    the Senator and Agbada and reimagining them for today's
-                    fashion-forward individuals.
+                    Our name, "Chuvel," represents our fusion of tradition and innovation, 
+                    taking the elegance of garments like the Senator and Agbada and 
+                    reimagining them for today.
                   </p>
                 </div>
                 <div className="h-80 bg-gradient-to-br from-primary/20 to-secondary/20 rounded-lg flex items-center justify-center">
@@ -251,7 +250,7 @@ export default function App() {
                     <div>
                       <h3 className="text-lg text-primary mb-1">Store Location</h3>
                       <p className="text-foreground/70">
-                        Victoria Island, Lagos
+                        146 Faulks Road, Aba, Abia State.
                         <br />
                         Nigeria
                       </p>
