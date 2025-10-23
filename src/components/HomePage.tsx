@@ -70,19 +70,26 @@ export function HomePage({ onNavigate, onAddToCart, currentUser }: HomePageProps
 
   const testimonials = [
     {
-      name: 'Adebayo Okafor',
+      name: 'Praise Okoli',
       role: 'Fashion Enthusiast',
-      content: 'The quality of Chuvel Threads is unmatched. My senator fits perfectly and looks absolutely premium.',
+      content: 'The quality of Chuvel Threads is unmatched. My Cooperate wears fits perfectly and looks absolutely premium.',
       rating: 5,
       avatar: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&h=100&fit=crop&crop=face'
     },
     {
-      name: 'Kemi Adebisi',
-      role: 'Style Blogger',
+      name: 'Chizuru Azuka',
+      role: 'Mobile App Developer',
       content: 'Love the fusion of traditional and modern styles. The streetwear collection is fire!',
       rating: 5,
       avatar: 'https://images.unsplash.com/photo-1494790108755-2616b612b436?w=100&h=100&fit=crop&crop=face'
-    }
+    },
+    {
+  name: 'Joy Chukwuemeka',
+  role: 'Style Blogger',
+  content: "The quality is incredible. Not just a standard tee; it's thick, soft, and feels durable. It’s my new favorite staple piece. I highly recommend Chuvel Threads",
+  rating: 5,
+  avatar: 'https://images.unsplash.com/photo-1494790108755-2616b612b436?w=100&h=100&fit=crop&crop=face'
+}
   ]
 
   return (
