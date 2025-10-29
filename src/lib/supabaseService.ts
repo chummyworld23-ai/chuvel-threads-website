@@ -13,36 +13,18 @@ type ContentInsert = Database['public']['Tables']['content']['Insert']
 // Authentication
 export const authService = {
   async signUp(email: string, password: string, fullName: string, dateOfBirth: string) {
-    const { data, error } = await supabase.auth.signUp({
-      email,
-      password,
-      options: {
-        data: {
-          full_name: fullName,
-          date_of_birth: dateOfBirth
-        }
-      }
-    })
-
-    if (error) throw error
-
-    // Create user profile
-    if (data.user) {
-      const { error: profileError } = await supabase
-        .from('users')
-        .insert({
-          id: data.user.id,
-          email: data.user.email!,
-          full_name: fullName,
-          date_of_birth: dateOfBirth,
-          role: 'user'
-        })
-
-      if (profileError) throw profileError
+  const { data, error } = await supabase.auth.signUp({
+    email,
+    password,
+    options: {
+      data: { full_name: fullName, date_of_birth: dateOfBirth }
     }
+  })
 
-    return data
-  },
+  if (error) throw error
+  alert('Signup successful! Please check your email to confirm your account.')
+  return data
+},
 
   async signIn(email: string, password: string) {
     const { data, error } = await supabase.auth.signInWithPassword({
@@ -101,27 +83,35 @@ export const authService = {
   },
 
   onAuthStateChange(callback: (user: any) => void) {
-    const { data: { subscription } } = supabase.auth.onAuthStateChange(async (event, session) => {
-      let user = null
-      if (session?.user) {
-        // Get user profile data
-        try {
-          const profile = await this.getUserProfile(session.user.id)
-          user = {
-            ...session.user,
-            profile
-          }
-        } catch (error) {
-          console.error('Error fetching user profile:', error)
-          user = session.user
-        }
-      }
-      callback(user)
-    })
+  const { data: { subscription } } = supabase.auth.onAuthStateChange(async (event, session) => {
+    if (session?.user) {
+      const { user } = session
 
-    return () => subscription.unsubscribe()
-  }
-}
+      // Try to find profile first
+      const { data: existing } = await supabase
+        .from('users')
+        .select('id')
+        .eq('id', user.id)
+        .maybeSingle()
+
+      if (!existing) {
+        await supabase.from('users').insert({
+          id: user.id,
+          email: user.email,
+          full_name: user.user_metadata.full_name,
+          date_of_birth: user.user_metadata.date_of_birth,
+          role: 'user'
+        })
+      }
+
+      callback(user)
+    } else {
+      callback(null)
+    }
+  })
+
+ return () => data?.subscription?.unsubscribe()
+},
 
 // Products
 export const productService = {
@@ -284,7 +274,7 @@ export const orderService = {
   }
 }
 
-// Content Management
+
 export const contentService = {
   async getContent(type: string) {
     const { data, error } = await supabase
