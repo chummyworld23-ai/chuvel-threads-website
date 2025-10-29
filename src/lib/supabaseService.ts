@@ -13,18 +13,18 @@ type ContentInsert = Database['public']['Tables']['content']['Insert']
 // Authentication
 export const authService = {
   async signUp(email: string, password: string, fullName: string, dateOfBirth: string) {
-  const { data, error } = await supabase.auth.signUp({
-    email,
-    password,
-    options: {
-      data: { full_name: fullName, date_of_birth: dateOfBirth }
-    }
-  })
+    const { data, error } = await supabase.auth.signUp({
+      email,
+      password,
+      options: {
+        data: { full_name: fullName, date_of_birth: dateOfBirth }
+      }
+    })
 
-  if (error) throw error
-  alert('Signup successful! Please check your email to confirm your account.')
-  return data
-},
+    if (error) throw error
+    alert('Signup successful! Please check your email to confirm your account.')
+    return data
+  },
 
   async signIn(email: string, password: string) {
     const { data, error } = await supabase.auth.signInWithPassword({
@@ -83,35 +83,36 @@ export const authService = {
   },
 
   onAuthStateChange(callback: (user: any) => void) {
-  const { data: { subscription } } = supabase.auth.onAuthStateChange(async (event, session) => {
-    if (session?.user) {
-      const { user } = session
+    const { data: { subscription } } = supabase.auth.onAuthStateChange(async (event, session) => {
+      if (session?.user) {
+        const { user } = session
 
-      // Try to find profile first
-      const { data: existing } = await supabase
-        .from('users')
-        .select('id')
-        .eq('id', user.id)
-        .maybeSingle()
+        // Try to find profile first
+        const { data: existing } = await supabase
+          .from('users')
+          .select('id')
+          .eq('id', user.id)
+          .maybeSingle()
 
-      if (!existing) {
-        await supabase.from('users').insert({
-          id: user.id,
-          email: user.email,
-          full_name: user.user_metadata.full_name,
-          date_of_birth: user.user_metadata.date_of_birth,
-          role: 'user'
-        })
+        if (!existing) {
+          await supabase.from('users').insert({
+            id: user.id,
+            email: user.email,
+            full_name: user.user_metadata.full_name,
+            date_of_birth: user.user_metadata.date_of_birth,
+            role: 'user'
+          })
+        }
+
+        callback(user)
+      } else {
+        callback(null)
       }
+    })
 
-      callback(user)
-    } else {
-      callback(null)
-    }
-  })
-
- return () => data?.subscription?.unsubscribe()
-},
+    return () => subscription.unsubscribe()
+  }
+}
 
 // Products
 export const productService = {
@@ -253,11 +254,11 @@ export const orderService = {
   },
 
   async updateOrderStatus(id: string, status: Order['status'], paymentStatus?: Order['payment_status']) {
-    const updates: any = { 
-      status, 
-      updated_at: new Date().toISOString() 
+    const updates: any = {
+      status,
+      updated_at: new Date().toISOString()
     }
-    
+
     if (paymentStatus) {
       updates.payment_status = paymentStatus
     }
@@ -274,7 +275,7 @@ export const orderService = {
   }
 }
 
-
+// Content
 export const contentService = {
   async getContent(type: string) {
     const { data, error } = await supabase
@@ -378,16 +379,17 @@ export const analyticsService = {
     }
   }
 }
+
 // User Management (for Admin)
 export const userService = {
   async getAllUsers() {
     const { data, error } = await supabase
       .from('users')
       .select('*')
-      .order('created_at', { ascending: false });
+      .order('created_at', { ascending: false })
 
-    if (error) throw error;
-    return data as User[];
+    if (error) throw error
+    return data as User[]
   },
 
   async updateUserRole(userId: string, role: User['role']) {
@@ -396,20 +398,18 @@ export const userService = {
       .update({ role })
       .eq('id', userId)
       .select()
-      .single();
+      .single()
 
-    if (error) throw error;
-    return data;
+    if (error) throw error
+    return data
   },
 
   async deleteUser(userId: string) {
-    // Note: This only deletes from your public 'users' table.
-    // Deleting from auth.users requires admin privileges on the backend.
     const { error } = await supabase
       .from('users')
       .delete()
-      .eq('id', userId);
+      .eq('id', userId)
 
-    if (error) throw error;
+    if (error) throw error
   }
-};
+}
