@@ -52,7 +52,7 @@ export function Header({
   });
 
   const isAdmin =
-    currentUser?.email === "emmanuelchukwuemeka275@gmail.com";
+    currentUser?.email === "chuvelthreads@gmail.com";
 
   const handleSearch = () => {
     const query = searchQuery.trim();

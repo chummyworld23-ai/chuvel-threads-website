@@ -1,8 +1,8 @@
 import { useState } from 'react';
-import { Input } from './ui/input';
-import { Textarea } from './ui/textarea';
-import { Button } from './ui/button';
-import { Card } from './ui/card';
+import { Input } from '../../../../email-service/src/components/ui/input';
+import { Textarea } from '../../../../email-service/src/components/ui/textarea';
+import { Button } from '../../../../email-service/src/components/ui/button';
+import { Card } from '../../../../email-service/src/components/ui/card';
 import { Sparkles } from 'lucide-react';
 
 export function NewCollectionEmail() {

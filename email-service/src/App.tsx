@@ -1,13 +1,13 @@
 import { useState } from 'react';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from './components/ui/tabs';
 import { WelcomeEmail } from './emails/WelcomeEmail';
-import { AbandonedCartEmail } from './components/AbandonedCartEmail';
-import { PostPurchaseEmail } from './components/PostPurchaseEmail';
-import { BirthdayEmail } from './components/BirthdayEmail';
-import { NewCollectionEmail } from './components/NewCollectionEmail';
-import { FlashSaleEmail } from './components/FlashSaleEmail';
-import { BFCMEmail } from './components/BFCMEmail';
-import { StyleGuideEmail } from './components/StyleGuideEmail';
+import { AbandonedCartEmail } from '../../supabase/fuctions/send-welcome-email/email service/AbandonedCartEmail';
+import { PostPurchaseEmail } from '../../supabase/fuctions/send-welcome-email/email service/PostPurchaseEmail';
+import { BirthdayEmail } from '../../supabase/fuctions/send-welcome-email/email service/BirthdayEmail';
+import { NewCollectionEmail } from '../../supabase/fuctions/send-welcome-email/email service/NewCollectionEmail';
+import { FlashSaleEmail } from '../../supabase/fuctions/send-welcome-email/email service/FlashSaleEmail';
+import { BFCMEmail } from '../../supabase/fuctions/send-welcome-email/email service/BFCMEmail';
+import { StyleGuideEmail } from '../../supabase/fuctions/send-welcome-email/email service/StyleGuideEmail';
 
 export default function App() {
   const [activeTab, setActiveTab] = useState('welcome');
